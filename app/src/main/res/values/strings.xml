@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CineRedux</string>
+    <string name="home_fragment_text">Home Fragment</string>
+    <string name="search_hint">Search...</string>
+    <string name="watchlist_fragment_text">Watchlist Fragment</string>
+    <string name="settings_fragment_text">Settings Fragment</string>
 </resources>
