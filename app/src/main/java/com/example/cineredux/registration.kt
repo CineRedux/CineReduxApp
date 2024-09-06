@@ -1,5 +1,6 @@
 package com.example.cineredux
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -44,8 +45,12 @@ class registration : AppCompatActivity() {
 
                 if (result > 0) {
                     Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                    // Clear input fields after registration
+
                     clearFields()
+
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                 }
