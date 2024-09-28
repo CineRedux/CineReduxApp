@@ -1,0 +1,428 @@
+package com.example.cineredux_v2
+
+
+
+import WatchlistFragment
+import android.app.AlertDialog
+import android.content.ContentValues.TAG
+import com.example.cineredux_v2.Movie
+import com.example.cineredux_v2.TrendingMoviesResponse
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+//THE
+/**
+
+
+class HomeFragment : Fragment() {
+
+private lateinit var viewModel: HomeViewModel
+
+override fun onCreateView(
+inflater: LayoutInflater, container: ViewGroup?,
+savedInstanceState: Bundle?
+): View? {
+return inflater.inflate(R.layout.fragment_home, container, false)
+}
+
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+super.onViewCreated(view, savedInstanceState)
+viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+viewModel.cachedMovies.observe(viewLifecycleOwner) { cachedMovies ->
+if (cachedMovies != null && cachedMovies.isNotEmpty()) {
+displayMovies(requireView(), cachedMovies) // Safely unwrap the view
+} else {
+fetchMoviesFromAPI(requireView()) // Use requireView() to ensure non-null view
+}
+}
+}
+
+private fun fetchMoviesFromAPI(view: View) {
+val apiService = RetrofitClient.instance
+val call = apiService.getTrendingMovies("4891cc07-b321-474d-8bb2-c5b1717d920d")
+
+call.enqueue(object : Callback<TrendingMoviesResponse> {
+override fun onResponse(call: Call<TrendingMoviesResponse>, response: Response<TrendingMoviesResponse>) {
+if (response.isSuccessful) {
+val movies = response.body()?.topMovies
+Log.d("HomeFragment", "Movies fetched: $movies")
+if (movies != null) {
+viewModel.cachedMovies.value = movies // Cache movies in ViewModel
+displayMovies(requireView(), movies) // Ensure non-null view
+}
+} else {
+Log.e("HomeFragment", "Response not successful: ${response.errorBody()?.string()}")
+}
+}
+
+override fun onFailure(call: Call<TrendingMoviesResponse>, t: Throwable) {
+Log.e("HomeFragment", "Failed to load trending movies", t)
+Toast.makeText(requireContext(), "Failed to load trending movies. Please try again later.", Toast.LENGTH_LONG).show()
+}
+})
+}
+
+private fun displayMovies(view: View, movies: List<Movie>?) {
+val homeLayout = view.findViewById<ViewGroup>(R.id.home_layout)
+
+movies?.let { movieList ->
+movieList.forEach { movie ->
+val movieView = LayoutInflater.from(requireContext()).inflate(R.layout.movie_item, homeLayout, false)
+
+val titleTextView = movieView.findViewById<TextView>(R.id.movie_title)
+val overviewTextView = movieView.findViewById<TextView>(R.id.movie_overview)
+val posterImageView = movieView.findViewById<ImageView>(R.id.movie_poster)
+
+titleTextView.text = movie.title
+overviewTextView.text = movie.overview
+Glide.with(this).load(movie.poster).into(posterImageView)
+
+// Add click listener for poster
+posterImageView.setOnClickListener {
+navigateToWatchlistFragment()
+}
+
+// Handle long-click event to add to watchlist
+posterImageView.setOnLongClickListener {
+showAddToWatchlistDialog(movie)
+true // Return true to indicate the event is handled
+}
+
+homeLayout.addView(movieView)
+}
+}
+}
+
+private fun showAddToWatchlistDialog(movie: Movie) {
+val dialog = AlertDialog.Builder(requireContext())
+dialog.setTitle("Add to Watchlist")
+dialog.setMessage("Do you want to add ${movie.title} to your watchlist?")
+dialog.setPositiveButton("Add") { _, _ ->
+addToWatchlist(movie)
+}
+dialog.setNegativeButton("Cancel", null)
+dialog.show()
+}
+
+private fun navigateToWatchlistFragment() {
+val watchlistFragment = WatchlistFragment()
+parentFragmentManager.beginTransaction()
+.replace(R.id.fragment_container, watchlistFragment)
+.addToBackStack(null)
+.commit()
+}
+
+private fun addToWatchlist(movie: Movie) {
+Log.d(TAG, "Adding movie to watchlist: ${movie.title}")
+
+val dbHelper = WatchlistDatabaseHelper(requireContext())
+
+Log.d("WatchlistAdapter", "ID: ${movie.id}")
+Log.d("WatchlistAdapter", "Title: ${movie.title}")
+Log.d("WatchlistAdapter", "Overview: ${movie.overview}")
+Log.d("WatchlistAdapter", "Poster: ${movie.poster}")
+Log.d("WatchlistAdapter", "TMDB Score: ${movie.tomatometer ?: "N/A"}")
+Log.d("WatchlistAdapter", "Trailer: ${movie.trailer ?: "No Trailer"}")
+
+try {
+dbHelper.addMovie(movie)
+Toast.makeText(requireContext(), "${movie.title} added to watchlist", Toast.LENGTH_SHORT).show()
+} catch (e: Exception) {
+Log.e(TAG, "Error adding movie to watchlist: ${e.message}", e)
+}
+}
+}
+
+
+ */
+
+
+// WORKING CLASS
+/**
+class HomeFragment : Fragment() {
+
+    private lateinit var viewModel: HomeViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+
+
+
+        val apiService = RetrofitClient.instance
+        val call = apiService.getTrendingMovies("4891cc07-b321-474d-8bb2-c5b1717d920d")
+
+        call.enqueue(object : Callback<TrendingMoviesResponse> {
+            override fun onResponse(call: Call<TrendingMoviesResponse>, response: Response<TrendingMoviesResponse>) {
+                if (response.isSuccessful) {
+                    val movies = response.body()?.topMovies
+                    Log.d("HomeFragment", "Movies fetched: $movies")
+                    movies?.forEach { movie ->
+                        Log.d("HomeFragment", "Tomatometer for ${movie.title}: ${movie.tomatometer}")
+                    }
+                    displayMovies(view, movies)
+                } else {
+                    Log.e("HomeFragment", "Response not successful: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<TrendingMoviesResponse>, t: Throwable) {
+                Log.e("HomeFragment", "Failed to load trending movies", t)
+                Toast.makeText(requireContext(), "Failed to load trending movies. Please try again later.", Toast.LENGTH_LONG).show()
+            }
+        })
+        viewModel.cachedMovies.observe(viewLifecycleOwner) { cachedMovies ->
+            if (cachedMovies != null && cachedMovies.isNotEmpty()) {
+                displayMovies(view, cachedMovies)
+            } else {
+                fetchMoviesFromAPI(view)
+            }
+        }
+    }
+
+    private fun fetchMoviesFromAPI(view: View) {
+        val apiService = RetrofitClient.instance
+        val call = apiService.getTrendingMovies("4891cc07-b321-474d-8bb2-c5b1717d920d")
+
+        call.enqueue(object : Callback<TrendingMoviesResponse> {
+            override fun onResponse(call: Call<TrendingMoviesResponse>, response: Response<TrendingMoviesResponse>) {
+                if (response.isSuccessful) {
+                    val movies = response.body()?.topMovies
+                    Log.d("HomeFragment", "Movies fetched: $movies")
+                    if (movies != null) {
+                        // Cache movies in ViewModel
+                        viewModel.cachedMovies.value = movies
+                        displayMovies(view, movies)
+                    }
+                } else {
+                    Log.e("HomeFragment", "Response not successful: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<TrendingMoviesResponse>, t: Throwable) {
+                Log.e("HomeFragment", "Failed to load trending movies", t)
+                Toast.makeText(requireContext(), "Failed to load trending movies. Please try again later.", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun displayMovies(view: View, movies: List<Movie>?) {
+        val homeLayout = view.findViewById<ViewGroup>(R.id.home_layout)
+
+        movies?.let { movieList ->
+            movieList.forEach { movie ->
+                val movieView = LayoutInflater.from(requireContext()).inflate(R.layout.movie_item, homeLayout, false)
+
+                val titleTextView = movieView.findViewById<TextView>(R.id.movie_title)
+                val overviewTextView = movieView.findViewById<TextView>(R.id.movie_overview)
+                val posterImageView = movieView.findViewById<ImageView>(R.id.movie_poster)
+
+                titleTextView.text = movie.title
+                overviewTextView.text = movie.overview
+                Glide.with(this).load(movie.poster).into(posterImageView)
+
+                posterImageView.setOnClickListener {
+                    navigateToWatchlistFragment()
+                }
+
+                // Handle long-click event to add to watchlist
+                posterImageView.setOnLongClickListener {
+                    showAddToWatchlistDialog(movie)
+                    true // Return true to indicate the event is handled
+                }
+
+                homeLayout.addView(movieView)
+            }
+        }
+    }
+
+    private fun showAddToWatchlistDialog(movie: Movie) {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setTitle("Add to Watchlist")
+        dialog.setMessage("Do you want to add ${movie.title} to your watchlist?")
+        dialog.setPositiveButton("Add") { _, _ ->
+            addToWatchlist(movie)
+        }
+        dialog.setNegativeButton("Cancel", null)
+        dialog.show()
+    }
+
+
+    private fun navigateToWatchlistFragment() {
+        val watchlistFragment = WatchlistFragment()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, watchlistFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun addToWatchlist(movie: Movie) {
+        Log.d(TAG, "Adding movie to watchlist: ${movie.title}")
+
+        val dbHelper = WatchlistDatabaseHelper(requireContext())
+
+        // Debugging to ensure correct movie data before saving
+        Log.d("WatchlistAdapter", "ID: ${movie.id}")
+        Log.d("WatchlistAdapter", "Title: ${movie.title}")
+        Log.d("WatchlistAdapter", "Overview: ${movie.overview}")
+        Log.d("WatchlistAdapter", "Poster: ${movie.poster}")
+        Log.d("WatchlistAdapter", "TMDB Score: ${movie.tomatometer ?: "N/A"}")
+        Log.d("WatchlistAdapter", "Trailer: ${movie.trailer ?: "No Trailer"}")
+
+        try {
+            dbHelper.addMovie(movie)  // Ensure movie fields are correctly passed here
+            Toast.makeText(requireContext(), "${movie.title} added to watchlist", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error adding movie to watchlist: ${e.message}", e)
+        }
+    }
+
+
+}
+
+**/
+
+class HomeFragment : Fragment() {
+
+    private lateinit var viewModel: HomeViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        // Observe cached movies
+        viewModel.cachedMovies.observe(viewLifecycleOwner) { cachedMovies ->
+            if (cachedMovies != null && cachedMovies.isNotEmpty()) {
+                Log.d("HomeFragment", "Displaying cached movies")
+                displayMovies(view, cachedMovies)
+            } else {
+                fetchMoviesFromAPI(view)
+            }
+        }
+
+        // Fetch trending movies from API if no cache available
+        if (viewModel.cachedMovies.value.isNullOrEmpty()) {
+            fetchMoviesFromAPI(view)
+        }
+    }
+
+    private fun fetchMoviesFromAPI(view: View) {
+        val apiService = RetrofitClient.instance
+        val call = apiService.getTrendingMovies("4891cc07-b321-474d-8bb2-c5b1717d920d")
+
+        call.enqueue(object : Callback<TrendingMoviesResponse> {
+            override fun onResponse(call: Call<TrendingMoviesResponse>, response: Response<TrendingMoviesResponse>) {
+                if (response.isSuccessful) {
+                    val movies = response.body()?.topMovies
+                    Log.d("HomeFragment", "Movies fetched: $movies")
+                    if (movies != null) {
+                        // Cache movies in ViewModel
+                        viewModel.cachedMovies.value = movies
+                        displayMovies(view, movies)
+                    }
+                } else {
+                    Log.e("HomeFragment", "Response not successful: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<TrendingMoviesResponse>, t: Throwable) {
+                Log.e("HomeFragment", "Failed to load trending movies", t)
+                Toast.makeText(requireContext(), "Failed to load trending movies. Please try again later.", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun displayMovies(view: View, movies: List<Movie>?) {
+        val homeLayout = view.findViewById<ViewGroup>(R.id.home_layout)
+
+        movies?.let { movieList ->
+            homeLayout.removeAllViews() // Clear previous views to avoid duplicates
+            movieList.forEach { movie ->
+                val movieView = LayoutInflater.from(requireContext()).inflate(R.layout.movie_item, homeLayout, false)
+
+                val titleTextView = movieView.findViewById<TextView>(R.id.movie_title)
+                val overviewTextView = movieView.findViewById<TextView>(R.id.movie_overview)
+                val posterImageView = movieView.findViewById<ImageView>(R.id.movie_poster)
+
+                titleTextView.text = movie.title
+                overviewTextView.text = movie.overview
+                Glide.with(this).load(movie.poster).into(posterImageView)
+
+                // Set click listeners for movie poster
+                posterImageView.setOnClickListener {
+                    navigateToWatchlistFragment()
+                }
+
+                // Handle long-click event to add to watchlist
+                posterImageView.setOnLongClickListener {
+                    showAddToWatchlistDialog(movie)
+                    true // Return true to indicate the event is handled
+                }
+
+                homeLayout.addView(movieView)
+            }
+        }
+    }
+
+    private fun showAddToWatchlistDialog(movie: Movie) {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setTitle("Add to Watchlist")
+        dialog.setMessage("Do you want to add ${movie.title} to your watchlist?")
+        dialog.setPositiveButton("Add") { _, _ ->
+            addToWatchlist(movie)
+        }
+        dialog.setNegativeButton("Cancel", null)
+        dialog.show()
+    }
+
+    private fun navigateToWatchlistFragment() {
+        val watchlistFragment = WatchlistFragment()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, watchlistFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun addToWatchlist(movie: Movie) {
+        Log.d(TAG, "Adding movie to watchlist: ${movie.title}")
+
+        val dbHelper = WatchlistDatabaseHelper(requireContext())
+
+        try {
+            dbHelper.addMovie(movie)
+            Toast.makeText(requireContext(), "${movie.title} added to watchlist", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error adding movie to watchlist: ${e.message}", e)
+        }
+    }
+}

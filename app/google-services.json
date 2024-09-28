@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "644847504028",
+    "project_id": "cineredux-a7a8b",
+    "storage_bucket": "cineredux-a7a8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644847504028:android:7c4214de5cd4b075983b59",
+        "android_client_info": {
+          "package_name": "com.example.cineredux_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9w_a1ezGqcsa1egtQrKW9z0367xBq4gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

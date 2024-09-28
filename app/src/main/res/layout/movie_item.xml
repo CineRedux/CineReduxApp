@@ -1,0 +1,47 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/rounded_border">
+
+    <ImageView
+        android:id="@+id/movie_poster"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Movie Title"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingTop="8dp"
+        android:textColor="#FFFFFF"
+        />
+
+    <TextView
+        android:id="@+id/movie_tomatometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tomatometer: %"
+        android:textSize="14sp"
+        android:paddingTop="4dp"
+        android:textColor="@android:color/black"/>
+
+
+    <TextView
+        android:id="@+id/movie_overview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Movie overview here..."
+        android:textSize="12sp"
+        android:paddingTop="4dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        />
+
+</LinearLayout>
