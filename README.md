@@ -1,6 +1,4 @@
-Here’s a more extensive README file for your CineRedux app, covering all aspects of the project, including installation, features, architecture, and usage instructions.
 
----
 
 # CineRedux
 
