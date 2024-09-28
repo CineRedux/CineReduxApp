@@ -109,6 +109,6 @@ Contributions are welcome! If you have suggestions for improvements or want to r
 ## Programmers/Creators
 This project was developed by the following group members:
 
-Ted Ngobeni - ST10027949
-Tshiamo Thekiso – ST10132516
-Motjoka Fanana – ST10089515
+Ted Ngobeni - ST10027949.
+Tshiamo Thekiso – ST10132516.
+Motjoka Fanana – ST10089515.
