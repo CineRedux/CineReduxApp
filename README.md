@@ -106,7 +106,7 @@ Contributions are welcome! If you have suggestions for improvements or want to r
 4. Push to the branch: `git push origin feature/YourFeature`.
 5. Open a pull request.
 
-##Programmers/Creators
+## Programmers/Creators
 This project was developed by the following group members:
 
 Ted Ngobeni - ST10027949
