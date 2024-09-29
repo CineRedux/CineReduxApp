@@ -12,7 +12,7 @@ interface ApiService {
     fun getTrendingMovies(@Query("api_key") apiKey: String): Call<TrendingMoviesResponse>
 
     // Endpoint to search for movies
-    @GET("movie")
+    @GET("search")
     fun searchMovies(
         @Query("query") query: String,
         @Query("api_key") apiKey: String
