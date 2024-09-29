@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -363,22 +364,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun displayMovies(view: View, movies: List<Movie>?) {
-        val homeLayout = view.findViewById<ViewGroup>(R.id.home_layout)
+        val gridLayout = view.findViewById<GridLayout>(R.id.grid_layout_movies)
 
         movies?.let { movieList ->
-            homeLayout.removeAllViews() // Clear previous views to avoid duplicates
+            gridLayout.removeAllViews()
+
             movieList.forEach { movie ->
-                val movieView = LayoutInflater.from(requireContext()).inflate(R.layout.movie_item, homeLayout, false)
+                val movieView = LayoutInflater.from(requireContext()).inflate(R.layout.movie_item, gridLayout, false)
 
                 val titleTextView = movieView.findViewById<TextView>(R.id.movie_title)
-                val overviewTextView = movieView.findViewById<TextView>(R.id.movie_overview)
+                val yearTextView = movieView.findViewById<TextView>(R.id.movie_year)
+                val tomatoMeterTextView = movieView.findViewById<TextView>(R.id.movie_tomatometer)
                 val posterImageView = movieView.findViewById<ImageView>(R.id.movie_poster)
 
+                // Set movie data
                 titleTextView.text = movie.title
-                overviewTextView.text = movie.overview
+                yearTextView.text = movie.year
+                tomatoMeterTextView.text = "Tomatometer: ${movie.tomatometer}"
                 Glide.with(this).load(movie.poster).into(posterImageView)
 
-                // Set click listeners for movie poster
+                // Set click listeners for the movie poster
                 posterImageView.setOnClickListener {
                     navigateToWatchlistFragment()
                 }
@@ -389,10 +394,21 @@ class HomeFragment : Fragment() {
                     true // Return true to indicate the event is handled
                 }
 
-                homeLayout.addView(movieView)
+
+                val layoutParams = GridLayout.LayoutParams().apply {
+                    width = 0
+                    height = GridLayout.LayoutParams.WRAP_CONTENT
+                    columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                    rowSpec = GridLayout.spec(GridLayout.UNDEFINED)
+                    setMargins(8, 8, 8, 8)
+                }
+
+                movieView.layoutParams = layoutParams
+                gridLayout.addView(movieView)
             }
         }
     }
+
 
     private fun showAddToWatchlistDialog(movie: Movie) {
         val dialog = AlertDialog.Builder(requireContext())

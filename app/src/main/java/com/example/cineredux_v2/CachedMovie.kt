@@ -12,6 +12,7 @@ data class CachedMovie(
     @PrimaryKey val id: Int,
     val title: String,
     val overview: String,
+    val year: Int,
     val poster: String,
     val tomatometer: String?,
     val trailer: String?

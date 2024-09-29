@@ -69,7 +69,7 @@ class WatchlistFragment : Fragment() {
                     val trailerUrl = cursor.getString(trailerUrlColumnIndex) ?: "No Trailer"
 
 
-                    Log.d("WatchlistFragment", "Retrieved movie - Poster URL: $posterUrl, Tomatometer: $tomatometer, Trailer: $trailerUrl")
+                    Log.d("WatchlistFragment", "Retrieved movie - Title: $title, Poster URL: $posterUrl, Tomatometer: $tomatometer, Trailer: $trailerUrl")
 
                     // Add the movie to the movieList
                     movieList.add(Movie(id, title, overview, posterUrl, tomatometer, trailerUrl))

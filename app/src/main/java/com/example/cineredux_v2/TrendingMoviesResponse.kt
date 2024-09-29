@@ -14,6 +14,7 @@ data class Movie(
     @SerializedName("overview") val overview: String,
     @SerializedName("poster") val poster: String,
     @SerializedName("title") val title: String,
+    @SerializedName("year") val year : String,
     @SerializedName("tomatometer") val tomatometer: String? = null,
     @SerializedName("trailer") val trailer: String? = null
 ) : Parcelable
