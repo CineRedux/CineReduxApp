@@ -8,7 +8,6 @@ plugins {
 android {
     namespace = "com.example.cineredux_v2"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.example.cineredux_v2"
         minSdk = 26

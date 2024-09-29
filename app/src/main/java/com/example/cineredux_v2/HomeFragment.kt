@@ -319,20 +319,19 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         // Observe cached movies
         viewModel.cachedMovies.observe(viewLifecycleOwner) { cachedMovies ->
             if (cachedMovies != null && cachedMovies.isNotEmpty()) {
                 Log.d("HomeFragment", "Displaying cached movies")
                 displayMovies(view, cachedMovies)
-            } else {
-                fetchMoviesFromAPI(view)
             }
         }
 
         // Fetch trending movies from API if no cache available
         if (viewModel.cachedMovies.value.isNullOrEmpty()) {
+            Log.d("HomeFragment", "No Cached movies, fetching from api")
             fetchMoviesFromAPI(view)
         }
     }
