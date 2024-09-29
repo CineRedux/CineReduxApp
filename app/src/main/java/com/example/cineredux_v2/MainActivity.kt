@@ -18,25 +18,25 @@ class MainActivity : AppCompatActivity() {
 
         // Set default fragment when activity is created
         if (savedInstanceState == null) {
-            loadFragment(HomeFragment(), false)
+            loadFragment(HomeFragment())
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    loadFragment(HomeFragment(), true)
+                    loadFragment(HomeFragment())
                     true
                 }
                 R.id.nav_search -> {
-                    loadFragment(SearchFragment(), true)
+                    loadFragment(SearchFragment())
                     true
                 }
                 R.id.nav_watchlist -> {
-                    loadFragment(WatchlistFragment(), true)
+                    loadFragment(WatchlistFragment())
                     true
                 }
                 R.id.nav_settings -> {
-                    loadFragment(SettingsFragment(), true)
+                    loadFragment(SettingsFragment())
                     true
                 }
                 else -> false
@@ -44,18 +44,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment, animate: Boolean) {
+    private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
 
-        if (animate) {
-            // Add custom animations for fragment transitions
-            transaction.setCustomAnimations(
-                R.anim.enter_from_right, // Enter animation
-                R.anim.exit_to_left,     // Exit animation
-                R.anim.enter_from_left,  // Pop enter animation (when back pressed)
-                R.anim.exit_to_right     // Pop exit animation
-            )
-        }
 
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
