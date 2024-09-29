@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="@color/fragmentBackground">
 
     <LinearLayout
         android:id="@+id/linearLayout_headings"
@@ -15,6 +15,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/background_color_top"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Watchlist"
             android:textSize="24sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textStyle="bold"/>
 
         <TextView
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text= "Favourite movies"
             android:textSize="18sp"
-            android:textColor="#FF9800"
+            android:textColor="#000000"
             android:layout_marginTop="8dp"/>
     </LinearLayout>
 
@@ -41,6 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
+        android:background="@color/background_color"
         app:layout_constraintTop_toBottomOf="@id/linearLayout_headings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +71,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:textSize="16sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textSize="14sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movie_title"/>
@@ -92,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textSize="14sp"
-        android:textColor="#FF9800"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movie_overview"/>
@@ -103,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textSize="14sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movie_tomatometer"/>

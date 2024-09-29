@@ -2,6 +2,7 @@ package com.example.cineredux_v2
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,18 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatDelegate
+import android.graphics.Color
+import androidx.core.content.ContextCompat
+
 
 class SettingsFragment : Fragment() {
 
     private lateinit var databaseHelper: DatabaseHelper
     private var userId: Int = 1 // Assuming you're retrieving the logged-in user's ID
+    private lateinit var btnLightMode: Button
+    private lateinit var btnDarkMode: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -100,4 +108,57 @@ class SettingsFragment : Fragment() {
         startActivity(intent)
         Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set the background color based on the theme
+        view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.fragmentBackground))
+
+        btnLightMode  = view.findViewById(R.id.btn_light_mode)
+        btnDarkMode = view.findViewById(R.id.btn_dark_mode)
+
+        // Load saved theme preference
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
+
+        // Set initial button states based on saved preference
+        updateButtonStates(isDarkMode)
+
+        // Handle Light Mode button click
+        btnLightMode.setOnClickListener {
+            setLightMode(sharedPreferences)
+        }
+
+        // Handle Dark Mode button click
+        btnDarkMode.setOnClickListener {
+            setDarkMode(sharedPreferences)
+        }
+    }
+
+    private fun setLightMode(sharedPreferences: SharedPreferences) {
+        sharedPreferences.edit().putBoolean("dark_mode", false).apply()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        requireActivity().recreate() // Recreate activity to apply changes
+    }
+
+    private fun setDarkMode(sharedPreferences: SharedPreferences) {
+        sharedPreferences.edit().putBoolean("dark_mode", true).apply()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        requireActivity().recreate() // Recreate activity to apply changes
+    }
+
+
+    private fun updateButtonStates(isDarkMode: Boolean) {
+        if (isDarkMode) {
+            btnLightMode.setBackgroundColor(Color.GRAY)  // Change color to indicate inactive
+            btnDarkMode.setBackgroundColor(Color.GRAY)   // Change color to indicate active
+        } else {
+            btnLightMode.setBackgroundColor(Color.GRAY)   // Change color to indicate active
+            btnDarkMode.setBackgroundColor(Color.GRAY)     // Change color to indicate inactive
+        }
+    }
+
+
+
 }

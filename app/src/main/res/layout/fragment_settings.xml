@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="#FFFFFF">
 
     <!-- Header -->
     <LinearLayout
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#1F1F1F"
+        android:background="#FF9800"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Settings"
             android:textSize="24sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:gravity="center"
             android:paddingBottom="8dp"/>
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="Manage Your Profile"
             android:textSize="18sp"
-            android:textColor="#FF9800"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:gravity="center"
             android:paddingTop="4dp" />
@@ -56,6 +56,30 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Light Mode Button -->
+            <Button
+                android:id="@+id/btn_light_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Light Mode"
+                android:background="@drawable/button_background"
+                android:textColor="#000000"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Dark Mode Button -->
+            <Button
+                android:id="@+id/btn_dark_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dark Mode"
+                android:background="@drawable/button_background"
+                android:textColor="#000000"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
             <!-- Edit Profile Button -->
             <Button
                 android:id="@+id/btn_edit_profile"
@@ -63,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="Edit Profile"
                 android:background="@drawable/button_background"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:padding="12dp"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp"/>
@@ -75,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:text="Delete Profile"
                 android:background="@drawable/button_background"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:padding="12dp"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp"/>
@@ -87,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="Logout"
                 android:background="@drawable/button_background"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:padding="12dp"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp"/>
