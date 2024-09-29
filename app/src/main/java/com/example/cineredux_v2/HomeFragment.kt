@@ -390,7 +390,8 @@ class HomeFragment : Fragment() {
 
                 // Set click listeners for the movie poster
                 posterImageView.setOnClickListener {
-                    navigateToWatchlistFragment()
+                    //navigateToWatchlistFragment()
+                    navigateToMovieDetails(movie.id)
                 }
 
                 // Handle long-click event to add to watchlist
@@ -430,6 +431,16 @@ class HomeFragment : Fragment() {
         val watchlistFragment = WatchlistFragment()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, watchlistFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+    private fun navigateToMovieDetails(movieId: Int) {
+        val movieDetails = MovieDetails()
+        val bundle = Bundle()
+        bundle.putInt("movieId", movieId)
+        movieDetails.arguments = bundle
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, movieDetails)
             .addToBackStack(null)
             .commit()
     }

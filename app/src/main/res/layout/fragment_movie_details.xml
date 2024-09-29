@@ -7,6 +7,13 @@
     android:padding="16dp"
     tools:context=".MovieDetails">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
     <ImageView
         android:id="@+id/movie_poster"
         android:layout_width="150dp"
