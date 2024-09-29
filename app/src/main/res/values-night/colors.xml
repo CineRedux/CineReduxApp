@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="colorPrimary">#FF9800</color> <!-- Dark primary color -->
+    <color name="colorPrimaryVariant">#ababab</color> <!-- Dark primary variant -->
+    <color name="colorOnPrimary">#FFFF</color> <!-- Text color on primary for dark mode -->
+    <color name="fragmentBackground">#121212</color> <!-- Dark Background -->
+    <color name="background_color_top">#FF9800</color>
+    <color name="background_color">#FFFFFF</color>
+</resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="@color/fragmentBackground">
 
     <LinearLayout
         android:id="@+id/header_layout"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#1F1F1F"
+        android:background="@color/background_color_top"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Search"
             android:textSize="24sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:gravity="center"
             android:paddingBottom="8dp"/>
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="Search For Movies"
             android:textSize="18sp"
-            android:textColor="#FF9800"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:gravity="center"
             android:paddingTop="4dp" />
@@ -59,7 +59,7 @@
             <EditText
                 android:id="@+id/edit_search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:hint="Search for a movie"
                 android:inputType="text"
                 android:background="@drawable/rounded_corners"
@@ -68,14 +68,14 @@
 
             <Button
                 android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="Search"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/loginbkg"
-                android:textColor="@color/white"
-                android:textSize="16sp"
                 android:padding="12dp"
-                android:layout_marginTop="8dp"/>
+                android:text="Search"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_search_results"

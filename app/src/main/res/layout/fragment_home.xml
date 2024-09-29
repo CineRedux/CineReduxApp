@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="@color/fragmentBackground">
 
 
     <ScrollView
@@ -12,6 +12,7 @@
         app:layout_constraintTop_toBottomOf="@id/header_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/fragmentBackground"
         app:layout_constraintEnd_toEndOf="parent">
 
 
@@ -23,7 +24,7 @@
             android:orientation="horizontal"
             android:padding="16dp"
             android:layout_margin="16dp"
-            android:background="#121212"/>
+            android:background="@color/fragmentBackground"/>
     </ScrollView>
 
     <!-- Header Layout -->
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#1F1F1F"
+        android:background="#FF9800"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
             android:text="HOME"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center" />
@@ -56,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="TOP 10 Trending Movies"
             android:textSize="18sp"
-            android:textColor="#FF9800"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:gravity="center" />
 
