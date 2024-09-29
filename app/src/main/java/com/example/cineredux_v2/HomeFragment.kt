@@ -352,7 +352,13 @@ class HomeFragment : Fragment() {
                         displayMovies(view, movies)
                     }
                 } else {
-                    Log.e("HomeFragment", "Response not successful: ${response.errorBody()?.string()}")
+                    if (response.code() == 502) {
+                        Log.d("HomeFragment", "Received 502 error. Retrying...")
+                        call.clone().enqueue(this)
+                    }
+                    else{
+                        Log.e("HomeFragment", "${response.code()}: ${response.errorBody()?.string()}")
+                    }
                 }
             }
 
