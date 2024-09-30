@@ -23,6 +23,7 @@ class MovieDetails : Fragment() {
     private lateinit var yearTextView: TextView
     private lateinit var ratingTextView: TextView
     private lateinit var ratingImageView: ImageView
+    private lateinit var overviewTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -40,6 +41,7 @@ class MovieDetails : Fragment() {
         yearTextView = view.findViewById(R.id.year_text_view)
         ratingTextView = view.findViewById(R.id.rating_textview)
         ratingImageView = view.findViewById(R.id.rating_imageview)
+        overviewTextView = view.findViewById(R.id.movie_overview)
         val movieId = arguments?.getInt("movieId") ?: 0
         getMovieDetails(movieId)
 
@@ -47,7 +49,7 @@ class MovieDetails : Fragment() {
     }
 
     private fun setMovieDetails(title: String, runtime: String, year: String, posterUrl: String, rating: String,
-                                istomatometer: Boolean) {
+                                istomatometer: Boolean, overview: String) {
         if (istomatometer){
             ratingImageView.setImageResource(R.drawable.rotten_tomatoes)
         }else{
@@ -57,6 +59,8 @@ class MovieDetails : Fragment() {
         runtimeTextView.text = runtime
         yearTextView.text = year
         ratingTextView.text = rating
+        overviewTextView.text = overview
+
         Glide.with(this).load(posterUrl).into(moviePoster)
         Log.d("MovieInfoFragment", istomatometer.toString())
     }
@@ -80,8 +84,9 @@ class MovieDetails : Fragment() {
                         val rating = it.tomatometer ?: it.tmdbScore
                         val isTomatometer = it.tomatometer != null
                         val posterUrl = it.poster ?: ""
+                        val overview = it.overview
 
-                        setMovieDetails(title, runtime, year, posterUrl, rating, isTomatometer)
+                        setMovieDetails(title, runtime, year, posterUrl, rating, isTomatometer, overview)
                     }
                 } else {
                     println("Request failed with status: ${response.code()}")

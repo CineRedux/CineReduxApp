@@ -7,5 +7,8 @@
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
     </style>
+    <style name="RoundedSquare">
+        <item name="cornerSize">5%</item>
+    </style>
 
 </resources>
