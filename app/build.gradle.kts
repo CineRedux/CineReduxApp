@@ -53,6 +53,7 @@ dependencies {
     implementation("androidx.room:room-common:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("com.google.firebase:firebase-firestore-ktx:25.1.0")
+    implementation("androidx.preference:preference-ktx:1.2.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")

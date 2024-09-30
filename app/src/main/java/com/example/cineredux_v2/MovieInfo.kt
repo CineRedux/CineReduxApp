@@ -6,6 +6,8 @@ data class MovieInfo(
     val overview : String,
     val runtime : Int,
     val year : Int,
-    val rating : String,
+    val trailer : String,
+    val tomatometer : String,
+    val tmdbScore : String,
     val poster : String,
 )

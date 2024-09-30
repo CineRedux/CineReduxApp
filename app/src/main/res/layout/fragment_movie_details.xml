@@ -3,59 +3,136 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MovieDetails">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/movie_poster"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="centerCrop"/>
-
     <LinearLayout
-        android:id="@+id/text_container"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_weight="0.6"
-        android:orientation="vertical"
-        android:layout_marginStart="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/title_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Movie_Title"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="250dp"
+            android:layout_margin="5dp"
+            android:elevation="10dp">
+            <ImageView
+                android:id="@+id/movie_poster"
+                android:layout_width="150dp"
+                android:layout_height="250dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="centerCrop"/>
+        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/runtime_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Movie_runtime"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="4dp"
-            android:paddingBottom="8dp"/>
+        <LinearLayout
+            android:id="@+id/text_container"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_weight="0.6"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
 
-        <TextView
-            android:id="@+id/year_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Movie_year"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="4dp" />
+            <TextView
+                android:id="@+id/title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Movie_Title"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/runtime_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie_runtime"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/year_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie_year"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/rating_imageview"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/rotten_tomatoes" /> <!-- Replace with your icon resource -->
+
+            <TextView
+                android:id="@+id/rating_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="%"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/play_imageview"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/baseline_play_trailer" /> <!-- Replace with your icon resource -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play Trailer"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/watchlist_imageview"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/baseline_bookmark_add" /> <!-- Replace with your icon resource -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to Watchlist"
+                android:gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
