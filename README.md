@@ -24,6 +24,7 @@ CineRedux is an Android application designed to provide users with a comprehensi
 - **Responsive UI**: Modern design with intuitive navigation.
 - **Settings**: Edit and delete user profiles.
 
+
 ## Technologies Used
 
 - **Kotlin**: The primary programming language for Android development.
@@ -38,7 +39,7 @@ CineRedux is an Android application designed to provide users with a comprehensi
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/cineredux.git
+   git clone https://github.com/CineRedux/CineReduxApp
    cd cineredux
    ```
 
@@ -109,6 +110,9 @@ Contributions are welcome! If you have suggestions for improvements or want to r
 ## Programmers/Creators
 This project was developed by the following group members:
 
-Ted Ngobeni - ST10027949.
-Tshiamo Thekiso – ST10132516.
-Motjoka Fanana – ST10089515.
+Ted Ngobeni - ST10027949. </br>
+Tshiamo Thekiso – ST10132516. </br>
+Motjoka Fanana – ST10089515. </br>
+
+The CineRedux app makes use of our in-house API found at:
+https://github.com/CineRedux/CineReduxAPI
