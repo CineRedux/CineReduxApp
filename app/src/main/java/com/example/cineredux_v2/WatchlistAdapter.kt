@@ -17,7 +17,7 @@ class WatchlistAdapter(private val movieList: ArrayList<Movie>) :
         var overviewTextView: TextView = itemView.findViewById(R.id.movie_overview)
         var posterImageView: ImageView = itemView.findViewById(R.id.movie_poster)
         var tomatometerTextView: TextView = itemView.findViewById(R.id.movie_tomatometer)
-        var trailerTextView: TextView = itemView.findViewById(R.id.movie_trailer)
+       // var trailerTextView: TextView = itemView.findViewById(R.id.movie_trailer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,14 +53,14 @@ class WatchlistAdapter(private val movieList: ArrayList<Movie>) :
             .into(holder.posterImageView)
 
         // Handle trailer TextView visibility and content
-        if (movie.trailer.isNullOrEmpty()) {
-            holder.trailerTextView.visibility = View.GONE
-            Log.d("WatchlistAdapter", "Trailer TextView is set to GONE")
-        } else {
-            holder.trailerTextView.visibility = View.VISIBLE
-            holder.trailerTextView.text = "Trailer: ${movie.trailer}"
-            Log.d("WatchlistAdapter", "Trailer TextView is set to VISIBLE with text: Trailer: ${movie.trailer}")
-        }
+//        if (movie.trailer.isNullOrEmpty()) {
+//            holder.trailerTextView.visibility = View.GONE
+//            Log.d("WatchlistAdapter", "Trailer TextView is set to GONE")
+//        } else {
+//            holder.trailerTextView.visibility = View.VISIBLE
+//            holder.trailerTextView.text = "Trailer: ${movie.trailer}"
+//            Log.d("WatchlistAdapter", "Trailer TextView is set to VISIBLE with text: Trailer: ${movie.trailer}")
+//        }
     }
 
     override fun getItemCount(): Int {

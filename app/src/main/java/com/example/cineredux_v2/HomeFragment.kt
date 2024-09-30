@@ -2,7 +2,7 @@ package com.example.cineredux_v2
 
 
 
-import WatchlistFragment
+//import WatchlistFragment
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import com.example.cineredux_v2.Movie
@@ -421,19 +421,19 @@ class HomeFragment : Fragment() {
         dialog.setTitle("Add to Watchlist")
         dialog.setMessage("Do you want to add ${movie.title} to your watchlist?")
         dialog.setPositiveButton("Add") { _, _ ->
-            addToWatchlist(movie)
+          //  addToWatchlist(movie)
         }
         dialog.setNegativeButton("Cancel", null)
         dialog.show()
     }
 
-    private fun navigateToWatchlistFragment() {
-        val watchlistFragment = WatchlistFragment()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, watchlistFragment)
-            .addToBackStack(null)
-            .commit()
-    }
+//    private fun navigateToWatchlistFragment() {
+//        val watchlistFragment = WatchlistFragment()
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, watchlistFragment)
+//            .addToBackStack(null)
+//            .commit()
+//    }
     private fun navigateToMovieDetails(movieId: Int) {
         val movieDetails = MovieDetails()
         val bundle = Bundle()
@@ -445,16 +445,16 @@ class HomeFragment : Fragment() {
             .commit()
     }
 
-    private fun addToWatchlist(movie: Movie) {
-        Log.d(TAG, "Adding movie to watchlist: ${movie.title}")
-
-        val dbHelper = WatchlistDatabaseHelper(requireContext())
-
-        try {
-            dbHelper.addMovie(movie)
-            Toast.makeText(requireContext(), "${movie.title} added to watchlist", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error adding movie to watchlist: ${e.message}", e)
-        }
-    }
+//    private fun addToWatchlist(movie: Movie) {
+//        Log.d(TAG, "Adding movie to watchlist: ${movie.title}")
+//
+//        val dbHelper = WatchlistDatabaseHelper(requireContext())
+//
+//        try {
+//            dbHelper.addMovie(movie)
+//            Toast.makeText(requireContext(), "${movie.title} added to watchlist", Toast.LENGTH_SHORT).show()
+//        } catch (e: Exception) {
+//            Log.e(TAG, "Error adding movie to watchlist: ${e.message}", e)
+//        }
+//    }
 }

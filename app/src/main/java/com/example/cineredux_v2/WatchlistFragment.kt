@@ -24,7 +24,7 @@ class WatchlistFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_watchlist, container, false)
 
-        recyclerView = view.findViewById(R.id.recycler_view_watchlist)
+       // recyclerView = view.findViewById(R.id.recycler_view_watchlist)
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
 
         dbHelper = WatchlistDatabaseHelper(requireContext())

@@ -266,7 +266,7 @@ import com.example.cineredux_v2.R
 import com.example.cineredux_v2.RetrofitClient
 import com.example.cineredux_v2.SearchAdapter
 import com.example.cineredux_v2.WatchlistDatabaseHelper
-import com.example.cineredux_v2.WatchlistAdapter
+//import com.example.cineredux_v2.WatchlistAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
