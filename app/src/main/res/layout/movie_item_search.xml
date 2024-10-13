@@ -57,7 +57,8 @@
                 android:layout_height="wrap_content"
                 android:text="Rating: N/A"
                 android:textSize="12sp"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/movie_trailer"
@@ -65,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:text="Trailer: N/A"
                 android:textSize="12sp"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
