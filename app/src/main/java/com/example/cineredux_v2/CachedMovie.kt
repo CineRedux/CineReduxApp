@@ -25,4 +25,8 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(movies: List<CachedMovie>)
+    @Query("SELECT * FROM movies WHERE id = :movieId")
+    suspend fun getMovieById(movieId: Int): CachedMovie?
+
+
 }

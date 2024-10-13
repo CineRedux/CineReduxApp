@@ -16,7 +16,7 @@ interface ApiService {
     fun searchMovies(
         @Query("query") query: String,
         @Query("api_key") apiKey: String
-    ): Call<MovieSearchResponse2>
+    ): Call<MovieSearchResponse>
 
     @GET("/movie/{movieId}")
     fun getMovieDetails(

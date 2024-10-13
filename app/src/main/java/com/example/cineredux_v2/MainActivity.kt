@@ -1,7 +1,7 @@
 package com.example.cineredux_v2
 
 import SearchFragment
-import WatchlistFragment
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate

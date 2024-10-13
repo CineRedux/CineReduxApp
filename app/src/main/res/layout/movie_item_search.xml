@@ -6,8 +6,7 @@
     android:padding="8dp"
     android:background="@drawable/rounded_border"
     android:elevation="4dp"
-    android:layout_marginBottom="8dp"
-    android:layout_weight="1">
+    android:layout_marginBottom="8dp">
 
     <ImageView
         android:id="@+id/movie_poster"
@@ -22,7 +21,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <!-- New LinearLayout for title and overview -->
+        <!-- LinearLayout for title and overview -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,6 +51,21 @@
                 android:paddingBottom="4dp"
                 android:lineSpacingExtra="2dp"/>
 
+            <TextView
+                android:id="@+id/movie_tomatometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating: N/A"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:id="@+id/movie_trailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trailer: N/A"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

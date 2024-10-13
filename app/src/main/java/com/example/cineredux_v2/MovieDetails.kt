@@ -1,5 +1,7 @@
 package com.example.cineredux_v2
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,12 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.example.cineredux_v2.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class MovieDetails : Fragment() {
 
@@ -24,6 +25,9 @@ class MovieDetails : Fragment() {
     private lateinit var ratingTextView: TextView
     private lateinit var ratingImageView: ImageView
     private lateinit var overviewTextView: TextView
+    private lateinit var watchlistImageView: ImageView // For adding to watchlist
+    private lateinit var playImageView: ImageView // For playing trailer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -42,17 +46,43 @@ class MovieDetails : Fragment() {
         ratingTextView = view.findViewById(R.id.rating_textview)
         ratingImageView = view.findViewById(R.id.rating_imageview)
         overviewTextView = view.findViewById(R.id.movie_overview)
+        watchlistImageView = view.findViewById(R.id.watchlist_imageview) // Initialize the ImageView
+        playImageView = view.findViewById(R.id.play_imageview) // Initialize the play ImageView
+
         val movieId = arguments?.getInt("movieId") ?: 0
         getMovieDetails(movieId)
+
+        // Set click listener for the watchlist ImageView
+        watchlistImageView.setOnClickListener {
+            // Call the addToWatchlist method
+            val movie = Movie(
+                id = movieId,
+                title = titleTextView.text.toString(),
+                overview = overviewTextView.text.toString(),
+                poster = moviePoster.toString(), // Ensure this is a valid poster URL or resource
+                tomatometer = ratingTextView.text.toString(), // Use the correct value for the tomatometer
+                trailer = getTrailerUrl(), // Get the trailer URL from the method
+                year = yearTextView.text.toString().split(": ")[1] // Extract the year from the TextView
+            )
+            addToWatchlist(movie) // Call the method to add to watchlist
+        }
+
+        // Set click listener for the play ImageView
+        playImageView.setOnClickListener {
+            val trailerUrl = getTrailerUrl() // Get the trailer URL
+            playTrailer(trailerUrl) // Play the trailer
+        }
 
         return view
     }
 
-    private fun setMovieDetails(title: String, runtime: String, year: String, posterUrl: String, rating: String,
-                                istomatometer: Boolean, overview: String) {
-        if (istomatometer){
+    private fun setMovieDetails(
+        title: String, runtime: String, year: String, posterUrl: String,
+        rating: String, isTomatometer: Boolean, overview: String, trailerUrl: String
+    ) {
+        if (isTomatometer) {
             ratingImageView.setImageResource(R.drawable.rotten_tomatoes)
-        }else{
+        } else {
             ratingImageView.setImageResource(R.drawable.gold_star)
         }
         titleTextView.text = title
@@ -61,16 +91,18 @@ class MovieDetails : Fragment() {
         ratingTextView.text = rating
         overviewTextView.text = overview
 
+        // Load the movie poster
         Glide.with(this).load(posterUrl).into(moviePoster)
-        Log.d("MovieInfoFragment", istomatometer.toString())
+        Log.d("MovieInfoFragment", isTomatometer.toString())
     }
+
     fun convertMinutesToHoursMinutes(minutes: Int): String {
         val hours = minutes / 60
         val remainingMinutes = minutes % 60
         return "${hours}h $remainingMinutes"
     }
 
-        private fun getMovieDetails(movieId: Int){
+    private fun getMovieDetails(movieId: Int) {
         val movieApi = RetrofitClient.instance
         val call = movieApi.getMovieDetails(movieId, "4891cc07-b321-474d-8bb2-c5b1717d920d")
         call.enqueue(object : Callback<MovieInfo> {
@@ -85,17 +117,60 @@ class MovieDetails : Fragment() {
                         val isTomatometer = it.tomatometer != null
                         val posterUrl = it.poster ?: ""
                         val overview = it.overview
+                        val trailerUrl = it.trailer ?: "" // Assuming you have a trailer URL field in MovieInfo
 
-                        setMovieDetails(title, runtime, year, posterUrl, rating, isTomatometer, overview)
+                        setMovieDetails(title, runtime, year, posterUrl, rating, isTomatometer, overview, trailerUrl)
                     }
                 } else {
-                    println("Request failed with status: ${response.code()}")
+                    Log.e("MovieDetails", "Request failed with status: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<MovieInfo>, t: Throwable) {
-                println("Request failed: ${t.message}")
+                Log.e("MovieDetails", "Request failed: ${t.message}")
             }
         })
+    }
+
+    private fun addToWatchlist(movie: Movie) {
+        Log.d("MovieDetails", "Adding movie to watchlist: ${movie.title}")
+        // Convert Movie to MovieSearch
+        val movieSearch = MovieSearch(
+            id = movie.id,
+            overview = movie.overview,
+            poster = movie.poster,
+            title = movie.title,
+            tomatometer = movie.tomatometer,
+            trailer = movie.trailer, // Add the trailer URL
+            year = movie.year // Assuming `year` in Movie is a String
+        )
+
+        // Add the movie to the database or watchlist
+        val dbHelper = WatchlistDatabaseHelper(requireContext())
+        try {
+            Log.d("MovieDetails", "Preparing to insert movie: ${movieSearch.title}")
+            val result = dbHelper.addMovie(movieSearch) // Ensure this method can handle MovieSearch
+            if (result) {
+                Log.d("MovieDetails", "${movieSearch.title} inserted successfully into the watchlist.")
+                Toast.makeText(requireContext(), "${movieSearch.title} added to watchlist", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.e("MovieDetails", "Failed to insert ${movieSearch.title} into the watchlist.")
+                Toast.makeText(requireContext(), "Failed to add ${movieSearch.title} to watchlist", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Log.e("MovieDetails", "Error adding movie to watchlist: ${e.message}", e)
+        }
+    }
+
+    private fun getTrailerUrl(): String {
+        // Logic to get the trailer URL. This can be from the API response or your data model.
+        // Assuming you have the trailer URL in the MovieInfo object as it.trailer
+        return "https://www.youtube.com/watch?v=your_trailer_id" // Replace with actual URL fetching logic
+    }
+
+    // Function to play the trailer using an intent
+    private fun playTrailer(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

@@ -108,7 +108,10 @@
                 android:id="@+id/play_imageview"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:src="@drawable/baseline_play_trailer" /> <!-- Replace with your icon resource -->
+                android:src="@drawable/baseline_play_trailer"
+                android:contentDescription="@string/play_trailer"
+                android:layout_gravity="center" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,7 +131,9 @@
                 android:id="@+id/watchlist_imageview"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:src="@drawable/baseline_bookmark_add" /> <!-- Replace with your icon resource -->
+                android:src="@drawable/baseline_bookmark_add"
+                android:contentDescription="Add to Watchlist"
+                android:clickable="true" />
 
             <TextView
                 android:layout_width="wrap_content"

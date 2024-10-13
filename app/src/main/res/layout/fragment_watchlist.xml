@@ -1,114 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fragmentBackground">
+    android:background="@color/background_color">
 
     <LinearLayout
-        android:id="@+id/linearLayout_headings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/background_color_top"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:id="@+id/watchlist_banner"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/colorPrimary"
+    android:padding="8dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/heading_watchlist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="COMING SOON"
-            android:textSize="30sp"
-            android:textColor="#000000"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/subheading_favourite_movies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text= "Watchlist is still under development."
-            android:textSize="23sp"
-            android:textColor="#000000"
-            android:layout_marginTop="8dp"/>
-    </LinearLayout>
-
-
-    <!--<ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:background="@color/background_color"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout_headings"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_watchlist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
-
-
-    <ImageView
-        android:id="@+id/movie_poster"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout_headings"/>
-
+    <!-- Watchlist Text -->
     <TextView
-        android:id="@+id/movie_title"
-        android:layout_width="0dp"
+        android:id="@+id/watchlist_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:textSize="16sp"
-        android:textColor="#000000"
+        android:text="Watchlist"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_poster"/>
+        android:gravity="center"/>
 
+    <!-- All movies added to Watchlist Text -->
     <TextView
-        android:id="@+id/movie_overview"
-        android:layout_width="0dp"
+        android:id="@+id/watchlist_subtitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textSize="14sp"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_title"/>
+        android:text="All movies added to Watchlist"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"/>
+</LinearLayout>
 
-    <TextView
-        android:id="@+id/movie_tomatometer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textSize="14sp"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_overview"/>
+    <!-- RecyclerView for Watchlist -->
+<androidx.recyclerview.widget.RecyclerView
+android:id="@+id/recycler_view_watchlist"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+app:layout_constraintTop_toBottomOf="@id/watchlist_banner"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/movie_trailer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textSize="14sp"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_tomatometer"/>
-        -->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
