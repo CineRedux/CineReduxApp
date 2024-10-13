@@ -1,5 +1,6 @@
 package com.example.cineredux_v2
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,9 +35,50 @@ class WatchlistFragment : Fragment() {
         movieArrayList = dbHelper.getWatchlistMovies() as ArrayList<MovieSearch> // Fetch movies directly as ArrayList
 
         // Set up the RecyclerView with cached movies
-        adapter = WatchlistAdapter(movieArrayList)
+        adapter = WatchlistAdapter(movieArrayList) { movie ->
+            showDeleteConfirmationDialog(movie)  // Show dialog on long click
+        }
         recyclerView.adapter = adapter
 
         return view
     }
+
+    override fun onResume() {
+        super.onResume()
+        loadMoviesFromDatabase() // Reload movies every time the fragment is visible
+    }
+
+    private fun loadMoviesFromDatabase() {
+        movieArrayList = dbHelper.getWatchlistMovies() as ArrayList<MovieSearch>
+        adapter = WatchlistAdapter(movieArrayList) { movie ->
+            showDeleteConfirmationDialog(movie)  // Pass the delete action callback
+        }
+        recyclerView.adapter = adapter
+        Log.d("WatchlistFragment", "Movies loaded: ${movieArrayList.size}")
+    }
+
+    private fun deleteMovie(movie: MovieSearch) {
+        val success = dbHelper.deleteMovieById(movie.id)
+        if (success) {
+            movieArrayList.remove(movie)  // Remove from list
+            adapter.notifyDataSetChanged()  // Notify adapter of data change
+            Log.d("WatchlistFragment", "${movie.title} deleted successfully.")
+        } else {
+            Log.e("WatchlistFragment", "Failed to delete ${movie.title}.")
+        }
+    }
+
+    private fun showDeleteConfirmationDialog(movie: MovieSearch) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Movie")
+        builder.setMessage("Are you sure you want to delete ${movie.title}?")
+        builder.setPositiveButton("Yes") { dialog, which ->
+            deleteMovie(movie)  // Delete the movie
+        }
+        builder.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()  // Dismiss the dialog
+        }
+        builder.show()
+    }
 }
+
