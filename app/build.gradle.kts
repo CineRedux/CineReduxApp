@@ -63,6 +63,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth")
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
     implementation ("androidx.preference:preference:1.2.0")
+    implementation ("androidx.biometric:biometric:1.2.0-alpha05")
 
 
 
