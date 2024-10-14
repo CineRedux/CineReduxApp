@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF9800</color> <!-- Light primary color -->
-    <color name="colorPrimaryVariant">#ad6905</color> <!-- Light primary variant -->
-    <color name="colorOnPrimary">#000000</color> <!-- Text color on primary for light mode -->
-    <color name="fragmentBackground">#FFFFFF</color> <!-- Light Background -->
+    <color name="colorPrimary">#FF9800</color>
+    <color name="colorPrimaryVariant">#ad6905</color>
+    <color name="colorOnPrimary">#000000</color>
+    <color name="fragmentBackground">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
     <color name="background_color_top">#FF9800</color>
     <color name="orange">#f3c481</color>
@@ -11,5 +11,4 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#8692f7</color>
-
 </resources>
