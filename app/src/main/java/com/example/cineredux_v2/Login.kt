@@ -1,4 +1,11 @@
+
 package com.example.cineredux_v2
+
+import android.widget.ImageButton
+
+
+
+
 
 import android.content.Intent
 import android.os.Build
@@ -6,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
@@ -33,7 +39,10 @@ class Login : AppCompatActivity() {
         val usernameField = findViewById<EditText>(R.id.username)
         val passwordField = findViewById<EditText>(R.id.password)
         val loginButton = findViewById<Button>(R.id.loginButton)
+
         val biometricLoginButton = findViewById<ImageButton>(R.id.biometricLoginButton) // Change to ImageButton
+
+
 
         // Set up the executor and biometric prompt
         executor = ContextCompat.getMainExecutor(this)
