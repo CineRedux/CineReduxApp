@@ -19,7 +19,7 @@ class WatchlistDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
                 $COLUMN_POSTER_URL TEXT,
                 $COLUMN_TOMATOEMETER TEXT,  
                 $COLUMN_TRAILER_URL TEXT,
-                $COLUMN_YEAR TEXT  -- Now updated to TEXT to match MovieSearch class
+                $COLUMN_YEAR TEXT 
             )
         """.trimIndent()
         db.execSQL(CREATE_WATCHLIST_TABLE)
