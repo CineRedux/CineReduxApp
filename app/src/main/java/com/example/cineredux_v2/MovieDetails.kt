@@ -27,6 +27,7 @@ class MovieDetails : Fragment() {
     private lateinit var overviewTextView: TextView
     private lateinit var watchlistImageView: ImageView // For adding to watchlist
     private lateinit var playImageView: ImageView // For playing trailer
+    private lateinit var poster_url: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +60,7 @@ class MovieDetails : Fragment() {
                 id = movieId,
                 title = titleTextView.text.toString(),
                 overview = overviewTextView.text.toString(),
-                poster = moviePoster.toString(), // Ensure this is a valid poster URL or resource
+                poster = poster_url, // Ensure this is a valid poster URL or resource
                 tomatometer = ratingTextView.text.toString(), // Use the correct value for the tomatometer
                 trailer = getTrailerUrl(), // Get the trailer URL from the method
                 year = yearTextView.text.toString().split(": ")[1] // Extract the year from the TextView
@@ -118,7 +119,7 @@ class MovieDetails : Fragment() {
                         val posterUrl = it.poster ?: ""
                         val overview = it.overview
                         val trailerUrl = it.trailer ?: "" // Assuming you have a trailer URL field in MovieInfo
-
+                        poster_url = posterUrl
                         setMovieDetails(title, runtime, year, posterUrl, rating, isTomatometer, overview, trailerUrl)
                     }
                 } else {
