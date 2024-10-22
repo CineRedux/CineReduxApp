@@ -28,6 +28,7 @@ class MovieDetails : Fragment() {
     private lateinit var watchlistImageView: ImageView // For adding to watchlist
     private lateinit var playImageView: ImageView // For playing trailer
     private lateinit var poster_url: String
+    private lateinit var trailer_url: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +63,7 @@ class MovieDetails : Fragment() {
                 overview = overviewTextView.text.toString(),
                 poster = poster_url, // Ensure this is a valid poster URL or resource
                 tomatometer = ratingTextView.text.toString(), // Use the correct value for the tomatometer
-                trailer = getTrailerUrl(), // Get the trailer URL from the method
+                trailer = trailer_url,
                 year = yearTextView.text.toString().split(": ")[1] // Extract the year from the TextView
             )
             addToWatchlist(movie) // Call the method to add to watchlist
@@ -70,7 +71,7 @@ class MovieDetails : Fragment() {
 
         // Set click listener for the play ImageView
         playImageView.setOnClickListener {
-            val trailerUrl = getTrailerUrl() // Get the trailer URL
+            val trailerUrl = trailer_url
             playTrailer(trailerUrl) // Play the trailer
         }
 
@@ -120,6 +121,7 @@ class MovieDetails : Fragment() {
                         val overview = it.overview
                         val trailerUrl = it.trailer ?: "" // Assuming you have a trailer URL field in MovieInfo
                         poster_url = posterUrl
+                        trailer_url = trailerUrl
                         setMovieDetails(title, runtime, year, posterUrl, rating, isTomatometer, overview, trailerUrl)
                     }
                 } else {
@@ -162,13 +164,6 @@ class MovieDetails : Fragment() {
             Log.e("MovieDetails", "Error adding movie to watchlist: ${e.message}", e)
         }
     }
-
-    private fun getTrailerUrl(): String {
-        // Logic to get the trailer URL. This can be from the API response or your data model.
-        // Assuming you have the trailer URL in the MovieInfo object as it.trailer
-        return "https://www.youtube.com/watch?v=your_trailer_id" // Replace with actual URL fetching logic
-    }
-
     // Function to play the trailer using an intent
     private fun playTrailer(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
