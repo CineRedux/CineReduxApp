@@ -53,7 +53,7 @@
                 android:id="@+id/runtime_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Movie_runtime"
+                android:text="@string/movie_runtime"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
@@ -63,7 +63,7 @@
                 android:id="@+id/year_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Movie_year"
+                android:text="@string/movie_release_year"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp" />
@@ -109,14 +109,14 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:src="@drawable/baseline_play_trailer"
-                android:contentDescription="@string/play_trailer"
+                android:contentDescription="Play trailer"
                 android:layout_gravity="center" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Play Trailer"
+                android:text="@string/play_trailer"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -138,7 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add to Watchlist"
+                android:text="@string/movie_add_to_watchlist"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -178,9 +178,10 @@
         android:layout_gravity="top|start">
 
         <TextView
+            android:id="@+id/movie_overview_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Overview"
+            android:text="@string/movie_overview"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:textSize="18sp"

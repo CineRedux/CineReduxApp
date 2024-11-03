@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movie_poster">Fliek plakkaat</string>
+    <string name="play_trailer">Speel sleepwa</string>
+    <string name="movie_overview">Oorsig</string>
+    <string name="settings_logout">uitteken</string>
+    <string name="movie_add_to_watchlist">Voeg by dophoulys</string>
+    <string name="movie_runtime">Looptyd</string>
+    <string name="movie_release_year">Vrystellingsjaar</string>
+    <string name="movie_search">Soek</string>
+    <string name="search_for_movie">Soek vir fliek</string>
+    <string name="movie_home">Tuis</string>
+    <string name="movie_trending">Top 10 gewilde flieks</string>
+    <string name="search_watchlist">Dophoulys</string>
+    <string name="search_added_movies">Jou gekyklys-flieks</string>
+</resources>

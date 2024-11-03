@@ -3,5 +3,22 @@
 
     <string name="movie_poster">Movie Poster</string>
     <string name="play_trailer">Play Trailer</string>
+    <string name="movie_overview">Overview</string>
+
+    <string-array name="languages_array">
+        <item>English</item>
+        <item>Zulu</item>
+        <item>Afrikaans (ZA)</item>
+    </string-array>
+    <string name="settings_logout">logout</string>
+    <string name="movie_add_to_watchlist">Add to Watchlist</string>
+    <string name="movie_runtime">Runtime</string>
+    <string name="movie_release_year">Release year</string>
+    <string name="movie_search">Search</string>
+    <string name="search_for_movie">Search For Movies</string>
+    <string name="movie_home">Home</string>
+    <string name="movie_trending">Top 10 trending movies</string>
+    <string name="search_watchlist">Watchlist</string>
+    <string name="search_added_movies">Your watchlisted movies</string>
 
 </resources>
