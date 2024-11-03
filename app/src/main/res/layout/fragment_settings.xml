@@ -55,15 +55,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <!-- Language Spinner -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/language"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="8dp"/>
+
             <Spinner
                 android:id="@+id/language_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:entries="@array/languages_array"
                 android:background="@drawable/button_background"
                 android:padding="12dp"
                 android:layout_marginBottom="16dp"/>
+
             <!-- Light Mode Button -->
             <Button
                 android:id="@+id/btn_light_mode"
@@ -117,23 +126,7 @@
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:text="@string/logout"
-                android:background="@drawable/button_background"
-                android:textColor="#000000"
-                android:padding="12dp"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp"/>
-
-            <!-- Language Button -->
-            <Button
-                android:id="@+id/btn_language"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/language"
-=======
-                android:text="@string/settings_logout"
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
                 android:background="@drawable/button_background"
                 android:textColor="#000000"
                 android:padding="12dp"

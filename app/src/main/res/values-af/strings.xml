@@ -32,12 +32,13 @@
     <string name="delete_profile_message">Is jy seker jy wil jou profiel verwyder? Hierdie aksie kan nie ongedaan gemaak word nie.</string>
     <string name="logout_title">Teken Uit</string>
     <string name="logout_message">Is jy seker jy wil uitteken?</string>
+    <string name="settings_logout">Teken Uit</string>
     
     <!-- Other -->
     <string name="movie_poster">Fliek Plakkaat</string>
     <string name="play_trailer">Speel Lokprent</string>
-    <string name="top_10_movies">Top 10 Flieks</string>
-    <string name="home">Tuis</string>
+    <string name="movie_trending">Top 10 Flieks</string>
+    <string name="movie_home">Tuis</string>
     <string name="add">Voeg by</string>
     <string name="add_to_watchlist">Voeg by Kyslys</string>
     <string name="add_to_watchlist_message">Wil jy %1$s by jou kyslys voeg?</string>
@@ -47,7 +48,7 @@
     <!-- Search Fragment -->
     <string name="search_title">Soek</string>
     <string name="search_subtitle">Soek Vir Flieks</string>
-    <string name="search_hint">Soek vir flieks&#8230;</string>
+    <string name="search_hint">Soek vir flieks...;</string>
     <string name="search_button">Soek</string>
     <string name="no_results">Geen resultate gevind</string>
     <string name="search_error">Fout tydens soektog</string>
@@ -59,4 +60,25 @@
     <string name="delete_movie_message">Is jy seker jy wil %1$s van jou kyslys verwyder?</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
+    
+    <!-- Movie Details -->
+    <string name="movie_add_to_watchlist">Voeg by Kyslys</string>
+    <string name="movie_runtime">Speeltyd</string>
+    <string name="movie_release_year">Vrystellingsjaar</string>
+    <string name="movie_overview">Oorsig</string>
+    
+    <!-- Add these strings -->
+    <string name="profile_deleted">Profiel suksesvol verwyder</string>
+    <string name="error_deleting_profile">Fout met verwydering van profiel</string>
+    <string name="logged_out">Suksesvol uitgeteken</string>
+    <string name="language_updated">Taal verander na %1$s</string>
+    <string name="biometric_unavailable">Biometriese verifikasie is nie beskikbaar nie</string>
+    <string name="auth_error">Verifikasie fout: %1$s</string>
+    <string name="auth_failed">Verifikasie het misluk</string>
+    
+    <string-array name="languages_array">
+        <item>English</item>
+        <item>IsiZulu</item>
+        <item>Afrikaans (ZA)</item>
+    </string-array>
 </resources> 

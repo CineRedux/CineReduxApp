@@ -21,15 +21,11 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.core.content.ContextCompat
-<<<<<<< HEAD
-import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import java.util.Locale
 import com.example.cineredux_v2.utils.LocaleHelper
-=======
-import java.util.Locale
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
+import com.example.cineredux_v2.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
@@ -39,81 +35,98 @@ class SettingsFragment : Fragment() {
     private lateinit var btnLightMode: Button
     private lateinit var btnDarkMode: Button
     private lateinit var languageSpinner: Spinner
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+    ): View {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Initialize DatabaseHelper
         databaseHelper = DatabaseHelper(requireContext())
 
-        val editProfileButton: Button = view.findViewById(R.id.btn_edit_profile)
-        val deleteProfileButton: Button = view.findViewById(R.id.btn_delete_profile)
-<<<<<<< HEAD
-        val logoutButton: Button = view.findViewById(R.id.btn_logout)
-        val languageButton: Button = view.findViewById(R.id.btn_language)
-        btnLightMode = view.findViewById(R.id.btn_light_mode)
-        btnDarkMode = view.findViewById(R.id.btn_dark_mode)
+        // Initialize all views
+        val editProfileButton: Button = binding.btnEditProfile
+        val deleteProfileButton: Button = binding.btnDeleteProfile
+        val logoutButton: Button = binding.btnLogout
+        btnLightMode = binding.btnLightMode
+        btnDarkMode = binding.btnDarkMode
+        languageSpinner = binding.languageSpinner  // Initialize the spinner
 
         // Set button texts
         editProfileButton.text = getString(R.string.edit_profile)
         deleteProfileButton.text = getString(R.string.delete_profile)
         logoutButton.text = getString(R.string.logout)
-        languageButton.text = getString(R.string.language)
         btnLightMode.text = getString(R.string.light_mode)
         btnDarkMode.text = getString(R.string.dark_mode)
-=======
-        val logoutButton: Button = view.findViewById(R.id.btn_logout) // Add the logout button
-        languageSpinner = view.findViewById(R.id.language_spinner)
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
 
-        // Set up Edit Profile Button
+        // Set up button click listeners
         editProfileButton.setOnClickListener {
-            // Replace the fragment manually
             val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, EditProfileFragment())
-            transaction.addToBackStack(null) // Optional: allows back navigation
+            transaction.addToBackStack(null)
             transaction.commit()
         }
 
-        // Set up Delete Profile Button
         deleteProfileButton.setOnClickListener {
-            // Show confirmation dialog
             showDeleteConfirmationDialog()
         }
-        logoutButton.text = getString(R.string.settings_logout)
 
-        // Set up Logout Button
         logoutButton.setOnClickListener {
-            // Show confirmation dialog for logout
             showLogoutConfirmationDialog()
         }
+
         Log.d("SettingsFragmentOnCreate", "BeforeLocale: ${resources.configuration.locales[0]}")
         setupLanguageSpinner()
         Log.d("SettingsFragmentOnCreate", "AfterLocale: ${resources.configuration.locales[0]}")
 
-        // Set up Language Button
-        languageButton.setOnClickListener {
-            showLanguageSelectionDialog()
+        // Set the background color based on the theme
+        binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.fragmentBackground))
+
+        btnLightMode = binding.btnLightMode
+        btnDarkMode = binding.btnDarkMode
+
+        // Load saved theme preference
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
+
+        // Set initial button states based on saved preference
+        updateButtonStates(isDarkMode)
+
+        // Handle Light Mode button click
+        btnLightMode.setOnClickListener {
+            setLightMode(sharedPreferences)
         }
 
-        return view
+        // Handle Dark Mode button click
+        btnDarkMode.setOnClickListener {
+            setDarkMode(sharedPreferences)
+        }
     }
 
     private fun setupLanguageSpinner() {
         // Load saved language preference
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val savedLanguage = sharedPreferences.getString("selected_language", "en")
+        
+        // Map display names to locale codes
         val languageLocaleMap = mapOf(
             "English" to "en",
-            "Zulu" to "zu",
+            "IsiZulu" to "zu",
             "Afrikaans (ZA)" to "af"
         )
+        
+        // Map locale codes to display names (for setting initial selection)
         val localeLanguageMap = mapOf(
             "en" to "English",
-            "zu" to "Zulu",
+            "zu" to "IsiZulu",
             "af" to "Afrikaans (ZA)"
         )
 
@@ -130,8 +143,9 @@ class SettingsFragment : Fragment() {
         // Set saved language selection in spinner
         val languages = resources.getStringArray(R.array.languages_array)
         val position = languages.indexOf(localeLanguageMap[savedLanguage])
-        languageSpinner.setSelection(position)
-
+        if (position >= 0) {
+            languageSpinner.setSelection(position)
+        }
 
         // Listen for language selection
         languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -139,31 +153,45 @@ class SettingsFragment : Fragment() {
                 val selectedLanguage = languages[position]
                 val selectedLocaleCode = languageLocaleMap[selectedLanguage] ?: return
 
-                Log.d("SettingsFragment", "Localecode: $selectedLocaleCode, savedlanguage: $savedLanguage ")
                 if (selectedLocaleCode != savedLanguage) {
-                    sharedPreferences.edit().putString("selected_language", selectedLocaleCode).apply()
-                    updateLocale(selectedLanguage)
-                    requireActivity().recreate() // Recreate activity to apply language change
-                    Toast.makeText(requireContext(), "Language updated to $selectedLanguage", Toast.LENGTH_SHORT).show()
+                    Log.d("SettingsFragment", "Selected language: $selectedLanguage, code: $selectedLocaleCode")
+                    
+                    // Save the selected language code
+                    sharedPreferences.edit()
+                        .putString("selected_language", selectedLocaleCode)
+                        .apply()
+                    
+                    // Create and set the new locale
+                    val locale = when (selectedLocaleCode) {
+                        "af" -> Locale("af", "ZA")
+                        "zu" -> Locale("zu", "ZA")  // Explicitly set Zulu locale
+                        else -> Locale(selectedLocaleCode)
+                    }
+
+                    // Update the app's locale
+                    Locale.setDefault(locale)
+                    val config = resources.configuration
+                    config.setLocale(locale)
+                    resources.updateConfiguration(config, resources.displayMetrics)
+
+                    // Update LocaleHelper
+                    LocaleHelper.setLocale(requireContext(), selectedLocaleCode)
+
+                    // Recreate the entire activity to ensure all strings are updated
+                    val intent = requireActivity().intent
+                    requireActivity().finish()
+                    startActivity(intent)
+                    
+                    Toast.makeText(
+                        requireContext(), 
+                        getString(R.string.language_updated, selectedLanguage), 
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
-    }
-    private fun updateLocale(language: String) {
-        val locale = when (language) {
-            "English" -> Locale("en")
-            "Zulu" -> Locale("zu")
-            "Afrikaans (ZA)" -> Locale("af", "ZA")
-            else -> Locale.getDefault()
-        }
-
-        Locale.setDefault(locale)
-        Log.d("SettingsFragment", "Locale: ${Locale.getDefault()}")
-        val config = Configuration()
-        config.setLocale(locale)
-        requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
     }
 
     // Function to show delete confirmation dialog
@@ -182,13 +210,13 @@ class SettingsFragment : Fragment() {
         val rowsDeleted = databaseHelper.deleteUser(userId)
 
         if (rowsDeleted > 0) {
-            Toast.makeText(requireContext(), "Profile deleted successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.profile_deleted), Toast.LENGTH_SHORT).show()
             // Optionally, redirect to a login or welcome screen after deletion
             val intent = Intent(requireContext(), Login::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         } else {
-            Toast.makeText(requireContext(), "Error deleting profile", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.error_deleting_profile), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -211,34 +239,7 @@ class SettingsFragment : Fragment() {
         val intent = Intent(requireContext(), Login::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Set the background color based on the theme
-        view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.fragmentBackground))
-
-        btnLightMode  = view.findViewById(R.id.btn_light_mode)
-        btnDarkMode = view.findViewById(R.id.btn_dark_mode)
-
-        // Load saved theme preference
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
-
-        // Set initial button states based on saved preference
-        updateButtonStates(isDarkMode)
-
-        // Handle Light Mode button click
-        btnLightMode.setOnClickListener {
-            setLightMode(sharedPreferences)
-        }
-
-        // Handle Dark Mode button click
-        btnDarkMode.setOnClickListener {
-            setDarkMode(sharedPreferences)
-        }
+        Toast.makeText(requireContext(), getString(R.string.logged_out), Toast.LENGTH_SHORT).show()
     }
 
     private fun setLightMode(sharedPreferences: SharedPreferences) {
@@ -264,34 +265,9 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun showLanguageSelectionDialog() {
-        val languages = arrayOf(getString(R.string.english), getString(R.string.afrikaans))
-        val languageCodes = arrayOf("en", "af")
-        
-        val currentLang = LocaleHelper.getLanguage(requireContext())
-        val currentIndex = languageCodes.indexOf(currentLang)
-        
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.select_language))
-            .setSingleChoiceItems(languages, currentIndex) { dialog, which ->
-                if (languageCodes[which] != currentLang) {
-                    LocaleHelper.setLocale(requireContext(), languageCodes[which])
-                    
-                    // Restart the entire application
-                    requireActivity().packageManager
-                        .getLaunchIntentForPackage(requireActivity().packageName)?.let { intent ->
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
-                            requireActivity().finish()
-                        }
-                }
-                dialog.dismiss()
-            }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

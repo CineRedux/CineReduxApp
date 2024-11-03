@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Apply saved locale
-        LocaleHelper.setLocale(this, LocaleHelper.getLanguage(this))
+        val prefs = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val language = prefs.getString("language", "en") ?: "en"
+        LocaleHelper.setLocale(this, language)
 
         // Load saved theme preference
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)

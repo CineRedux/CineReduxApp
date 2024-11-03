@@ -14,7 +14,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,6 +39,9 @@ android {
                 srcDirs("src\\main\\res", "src\\main\\res\\values-zu")
             }
         }
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 

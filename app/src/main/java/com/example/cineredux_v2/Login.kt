@@ -80,7 +80,7 @@ class Login : AppCompatActivity() {
             if (canAuthenticateWithBiometrics()) {
                 showBiometricPrompt()
             } else {
-                Toast.makeText(this, "Biometric authentication is not available", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.biometric_unavailable), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -93,7 +93,7 @@ class Login : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.invalid_credentials), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -142,7 +142,7 @@ class Login : AppCompatActivity() {
         return BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
-                Toast.makeText(this@Login, "Authentication error: $errString", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Login, getString(R.string.auth_error, errString), Toast.LENGTH_SHORT).show()
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -154,7 +154,7 @@ class Login : AppCompatActivity() {
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
-                Toast.makeText(this@Login, "Authentication failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Login, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show()
             }
         })
     }

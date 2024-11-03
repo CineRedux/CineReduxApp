@@ -1,16 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="movie_poster">Iphosta yefilimu</string>
-    <string name="play_trailer">Dlala i-trailer</string>
-    <string name="movie_overview">incazelo yefilimu</string>
+    <string name="app_name">CineRedux</string>
+    
+    <!-- Login Screen -->
+    <string name="login">Ngena</string>
+    <string name="username">Igama lomsebenzisi</string>
+    <string name="password">Iphasiwedi</string>
+    <string name="login_button">Ngena</string>
+    <string name="register_button">Bhalisa</string>
+    <string name="invalid_credentials">Igama lomsebenzisi noma iphasiwedi engalungile</string>
+    <string name="biometric_login">Ukungena ngeminwe</string>
+    <string name="biometric_subtitle">Sebenzisa iminwe yakho ukungena</string>
+    <string name="google_signin_failed">Ukungena nge-Google kuhlulekile: %1$s</string>
+    <string name="sign_in_with_google">Ngena nge-Google</string>
+    <string name="sign_in_with_biometrics">Ngena ngeminwe</string>
+    
+    <!-- Settings Screen -->
+    <string name="language">Ulimi</string>
+    <string name="dark_mode">Indlela emnyama</string>
+    <string name="light_mode">Indlela ekhanyayo</string>
+    <string name="select_language">Khetha Ulimi</string>
+    <string name="english">IsiNgisi</string>
+    <string name="afrikaans">IsiBhunu</string>
+    <string name="cancel">Khansela</string>
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="settings_subtitle">Phatha Izintandokazi Zakho</string>
+    <string name="edit_profile">Hlela Iphrofayela</string>
+    <string name="delete_profile">Susa Iphrofayela</string>
+    <string name="logout">Phuma</string>
+    <string name="delete_profile_title">Susa Iphrofayela</string>
+    <string name="delete_profile_message">Uqinisekile ukuthi ufuna ukususa iphrofayela yakho? Lokhu ngeke kubuyiselwe emuva.</string>
+    <string name="logout_title">Phuma</string>
+    <string name="logout_message">Uqinisekile ukuthi ufuna ukuphuma?</string>
     <string name="settings_logout">Phuma</string>
-    <string name="movie_add_to_watchlist">Engeza ohlwini lokubuka</string>
-    <string name="movie_runtime">Ubude befilimu</string>
-    <string name="movie_release_year">unyaka wokukhululwa</string>
-    <string name="movie_search">Sesha</string>
-    <string name="search_for_movie">Sesha imuvi</string>
+    
+    <!-- Other -->
+    <string name="movie_poster">Isithombe sefilimu</string>
+    <string name="play_trailer">Dlala Isilingo</string>
+    <string name="movie_trending">Amafilimu angu-10 Aphezulu</string>
     <string name="movie_home">Ikhaya</string>
-    <string name="movie_trending">Amafilimu aphezulu ayi-10 athrendayo</string>
-    <string name="search_watchlist">Uhlu lokubuka</string>
-    <string name="search_added_movies">Amafilimu akho asohlwini lokubuka</string>
-</resources>
+    <string name="add">Engeza</string>
+    <string name="add_to_watchlist">Engeza Ohlwini Lokubuka</string>
+    <string name="add_to_watchlist_message">Ufuna ukwengeza i-%1$s ohlwini lwakho lokubuka?</string>
+    <string name="tomatometer">Tomatometer: %1$s%%</string>
+    <string name="loading_error">Iphutha ekulayisheni amafilimu. Sicela uzame futhi.</string>
+    
+    <!-- Search Fragment -->
+    <string name="search_title">Sesha</string>
+    <string name="search_subtitle">Sesha Amafilimu</string>
+    <string name="search_hint">Sesha amafilimu...</string>
+    <string name="search_button">Sesha</string>
+    <string name="no_results">Ayikho imiphumela etholakele</string>
+    <string name="search_error">Iphutha ekusesheni</string>
+    
+    <!-- Watchlist Fragment -->
+    <string name="watchlist_title">Uhlu Lwami Lokubuka</string>
+    <string name="empty_watchlist">Uhlu lwakho lokubuka</string>
+    <string name="delete_from_watchlist">Susa Ohlwini Lokubuka</string>
+    <string name="delete_movie_message">Uqinisekile ukuthi ufuna ukususa i-%1$s ohlwini lwakho lokubuka?</string>
+    <string name="yes">Yebo</string>
+    <string name="no">Cha</string>
+    
+    <!-- Movie Details -->
+    <string name="movie_add_to_watchlist">Engeza Ohlwini Lokubuka</string>
+    <string name="movie_runtime">Isikhathi sokudlala</string>
+    <string name="movie_release_year">Unyaka wokukhishwa</string>
+    <string name="movie_overview">Ukubuka konke</string>
+    
+    <!-- Additional strings -->
+    <string name="profile_deleted">Iphrofayela isusiwe ngempumelelo</string>
+    <string name="error_deleting_profile">Iphutha ekususeni iphrofayela</string>
+    <string name="logged_out">Uphumile ngempumelelo</string>
+    <string name="language_updated">Ulimi lushintshelwe ku-%1$s</string>
+    <string name="biometric_unavailable">Ukungena ngeminwe akutholakali</string>
+    <string name="auth_error">Iphutha lokungena: %1$s</string>
+    <string name="auth_failed">Ukungena kuhlulekile</string>
+    
+    <string-array name="languages_array">
+        <item>English</item>
+        <item>IsiZulu</item>
+        <item>Afrikaans (ZA)</item>
+    </string-array>
+</resources> 

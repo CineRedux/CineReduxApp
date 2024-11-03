@@ -24,10 +24,6 @@
         android:text="@string/watchlist_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-        android:text="@string/search_watchlist"
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
         android:textSize="24sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"
@@ -39,10 +35,6 @@
         android:text="@string/empty_watchlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-        android:text="@string/search_added_movies"
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
         android:textSize="18sp"
         android:textColor="@android:color/black"
         android:gravity="center"/>

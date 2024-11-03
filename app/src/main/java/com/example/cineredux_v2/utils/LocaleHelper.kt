@@ -7,18 +7,22 @@ import java.util.Locale
 
 object LocaleHelper {
     fun setLocale(context: Context, languageCode: String) {
-        val locale = Locale(languageCode)
+        val locale = when (languageCode) {
+            "af" -> Locale("af", "ZA")
+            "en" -> Locale("en")
+            "zu" -> Locale("zu", "ZA")
+            else -> Locale(languageCode)
+        }
+        
         Locale.setDefault(locale)
-
         val resources: Resources = context.resources
         val configuration: Configuration = resources.configuration
-
         configuration.setLocale(locale)
         configuration.setLayoutDirection(locale)
-
+        
         @Suppress("DEPRECATION")
         resources.updateConfiguration(configuration, resources.displayMetrics)
-
+        
         // Save the selected language code to SharedPreferences
         val sharedPreferences = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
         sharedPreferences.edit().putString("language", languageCode).apply()
@@ -35,9 +39,14 @@ object LocaleHelper {
     }
 
     private fun createContextWithNewLocale(context: Context, language: String): Context {
-        val locale = Locale(language)
+        val locale = when (language) {
+            "af" -> Locale("af", "ZA")
+            "en" -> Locale("en")
+            "zu" -> Locale("zu", "ZA")
+            else -> Locale(language)
+        }
+        
         Locale.setDefault(locale)
-
         val configuration = Configuration(context.resources.configuration)
         configuration.setLocale(locale)
         

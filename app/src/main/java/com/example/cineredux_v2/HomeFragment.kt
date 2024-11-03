@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
         // Observe cached movies
         viewModel.cachedMovies.observe(viewLifecycleOwner) { cachedMovies ->
-            if (cachedMovies != null && cachedMovies.isNotEmpty()) {
+            if (cachedMovies != null && cachedMovies.isNotEmpty() && isAdded) {
                 Log.d("HomeFragment", "Displaying cached movies")
                 displayMovies(view, cachedMovies)
             }
@@ -51,9 +51,7 @@ class HomeFragment : Fragment() {
             Log.d("HomeFragment", "No Cached movies, fetching from api")
             fetchMoviesFromAPI(view)
         }
-        setLocale()
     }
-
 
     private fun fetchMoviesFromAPI(view: View) {
         val apiService = RetrofitClient.instance
@@ -61,51 +59,47 @@ class HomeFragment : Fragment() {
 
         call.enqueue(object : Callback<TrendingMoviesResponse> {
             override fun onResponse(call: Call<TrendingMoviesResponse>, response: Response<TrendingMoviesResponse>) {
+                if (!isAdded) return  // Check if fragment is attached before proceeding
+                
                 if (response.isSuccessful) {
                     val movies = response.body()?.topMovies
                     Log.d("HomeFragment", "Movies fetched: $movies")
                     if (movies != null) {
                         // Cache movies in ViewModel
                         viewModel.cachedMovies.value = movies
-                        displayMovies(view, movies)
+                        if (isAdded) {  // Check again before displaying
+                            displayMovies(view, movies)
+                        }
                     }
                 } else {
                     if (response.code() == 502) {
                         Log.d("HomeFragment", "Received 502 error. Retrying...")
                         call.clone().enqueue(this)
-                    }
-                    else{
+                    } else {
                         Log.e("HomeFragment", "${response.code()}: ${response.errorBody()?.string()}")
                     }
                 }
             }
 
             override fun onFailure(call: Call<TrendingMoviesResponse>, t: Throwable) {
+                if (!isAdded) return  // Check if fragment is attached
+                
                 Log.e("HomeFragment", "Failed to load trending movies", t)
                 Toast.makeText(requireContext(), getString(R.string.loading_error), Toast.LENGTH_LONG).show()
             }
         })
     }
-    private fun setLocale() {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val selectedLanguage = sharedPreferences.getString("selected_language", "en") ?: "en"
-        val locale = Locale(selectedLanguage)
-        Locale.setDefault(locale)
-        val config = resources.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-    }
+
     private fun displayMovies(view: View, movies: List<Movie>?) {
+        if (!isAdded) return  // Check if fragment is attached
+        
         val gridLayout = view.findViewById<GridLayout>(R.id.grid_layout_movies)
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val savedLanguage = sharedPreferences.getString("selected_language", "English")
-        val currentLocale = resources.configuration.locales[0]
-        Log.d("HomeFragment", "Language: $savedLanguage, $currentLocale")
-        Log.d("HomeFragment", "Locale: ${Locale.getDefault()}")
         movies?.let { movieList ->
             gridLayout.removeAllViews()
 
             movieList.forEach { movie ->
+                if (!isAdded) return@forEach  // Check if fragment is still attached in the loop
+                
                 val movieView = LayoutInflater.from(requireContext()).inflate(R.layout.movie_item, gridLayout, false)
 
                 val titleTextView = movieView.findViewById<TextView>(R.id.movie_title)
@@ -146,7 +140,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun showAddToWatchlistDialog(movie: Movie) {
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.add_to_watchlist))
@@ -157,7 +150,6 @@ class HomeFragment : Fragment() {
             .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
-
 
     private fun navigateToMovieDetails(movieId: Int) {
         val movieDetails = MovieDetails()
@@ -170,4 +162,7 @@ class HomeFragment : Fragment() {
             .commit()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
 }
