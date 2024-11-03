@@ -8,60 +8,46 @@
 
     <LinearLayout
         android:id="@+id/watchlist_banner"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/colorPrimary"
-    android:padding="8dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent">
-
-    <!-- Watchlist Text -->
-    <TextView
-        android:id="@+id/watchlist_title"
-        android:text="@string/watchlist_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        android:text="@string/search_watchlist"
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
->>>>>>> eb0c69140ed3152984358bb52b30f56dfeced6fc
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:gravity="center"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- All movies added to Watchlist Text -->
-    <TextView
-        android:id="@+id/watchlist_subtitle"
-        android:text="@string/empty_watchlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        android:text="@string/search_added_movies"
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
->>>>>>> eb0c69140ed3152984358bb52b30f56dfeced6fc
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:gravity="center"/>
-</LinearLayout>
+        <!-- Watchlist Text -->
+        <TextView
+            android:id="@+id/watchlist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/watchlist_title"
+            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <!-- All movies added to Watchlist Text -->
+        <TextView
+            android:id="@+id/watchlist_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_watchlist"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:gravity="center" />
+    </LinearLayout>
 
     <!-- RecyclerView for Watchlist -->
-<androidx.recyclerview.widget.RecyclerView
-android:id="@+id/recycler_view_watchlist"
-android:layout_width="match_parent"
-android:layout_height="0dp"
-app:layout_constraintTop_toBottomOf="@id/watchlist_banner"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_watchlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/watchlist_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,8 @@
 package com.example.cineredux_v2
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,28 +19,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.core.content.ContextCompat
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import android.content.res.Configuration
->>>>>>> eb0c69140ed3152984358bb52b30f56dfeced6fc
-import android.content.res.Resources
-import android.os.Build
 import java.util.Locale
 import com.example.cineredux_v2.utils.LocaleHelper
-<<<<<<< HEAD
 import com.example.cineredux_v2.databinding.FragmentSettingsBinding
-=======
-=======
-import java.util.Locale
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
->>>>>>> eb0c69140ed3152984358bb52b30f56dfeced6fc
-
 
 class SettingsFragment : Fragment() {
 
     private lateinit var databaseHelper: DatabaseHelper
-    private var userId: Int = 1 // Assuming you're retrieving the logged-in user's ID
+    private var userId: Int = 1
     private lateinit var btnLightMode: Button
     private lateinit var btnDarkMode: Button
     private lateinit var languageSpinner: Spinner
@@ -63,23 +47,13 @@ class SettingsFragment : Fragment() {
         // Initialize DatabaseHelper
         databaseHelper = DatabaseHelper(requireContext())
 
-<<<<<<< HEAD
         // Initialize all views
         val editProfileButton: Button = binding.btnEditProfile
         val deleteProfileButton: Button = binding.btnDeleteProfile
         val logoutButton: Button = binding.btnLogout
         btnLightMode = binding.btnLightMode
         btnDarkMode = binding.btnDarkMode
-        languageSpinner = binding.languageSpinner  // Initialize the spinner
-=======
-        val editProfileButton: Button = view.findViewById(R.id.btn_edit_profile)
-        val deleteProfileButton: Button = view.findViewById(R.id.btn_delete_profile)
-<<<<<<< HEAD
-        val logoutButton: Button = view.findViewById(R.id.btn_logout)
-        val languageButton: Button = view.findViewById(R.id.btn_language)
-        btnLightMode = view.findViewById(R.id.btn_light_mode)
-        btnDarkMode = view.findViewById(R.id.btn_dark_mode)
->>>>>>> eb0c69140ed3152984358bb52b30f56dfeced6fc
+        languageSpinner = binding.languageSpinner
 
         // Set button texts
         editProfileButton.text = getString(R.string.edit_profile)
@@ -87,13 +61,6 @@ class SettingsFragment : Fragment() {
         logoutButton.text = getString(R.string.logout)
         btnLightMode.text = getString(R.string.light_mode)
         btnDarkMode.text = getString(R.string.dark_mode)
-<<<<<<< HEAD
-=======
-=======
-        val logoutButton: Button = view.findViewById(R.id.btn_logout) // Add the logout button
-        languageSpinner = view.findViewById(R.id.language_spinner)
->>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
->>>>>>> eb0c69140ed3152984358bb52b30f56dfeced6fc
 
         // Set up button click listeners
         editProfileButton.setOnClickListener {
@@ -117,9 +84,6 @@ class SettingsFragment : Fragment() {
 
         // Set the background color based on the theme
         binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.fragmentBackground))
-
-        btnLightMode = binding.btnLightMode
-        btnDarkMode = binding.btnDarkMode
 
         // Load saved theme preference
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
