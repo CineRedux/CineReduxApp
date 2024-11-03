@@ -1,8 +1,10 @@
 package com.example.cineredux_v2
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +16,20 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatDelegate
 import android.graphics.Color
+import android.util.Log
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.core.content.ContextCompat
+<<<<<<< HEAD
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import java.util.Locale
 import com.example.cineredux_v2.utils.LocaleHelper
+=======
+import java.util.Locale
+>>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
 
 
 class SettingsFragment : Fragment() {
@@ -28,6 +38,7 @@ class SettingsFragment : Fragment() {
     private var userId: Int = 1 // Assuming you're retrieving the logged-in user's ID
     private lateinit var btnLightMode: Button
     private lateinit var btnDarkMode: Button
+    private lateinit var languageSpinner: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +51,7 @@ class SettingsFragment : Fragment() {
 
         val editProfileButton: Button = view.findViewById(R.id.btn_edit_profile)
         val deleteProfileButton: Button = view.findViewById(R.id.btn_delete_profile)
+<<<<<<< HEAD
         val logoutButton: Button = view.findViewById(R.id.btn_logout)
         val languageButton: Button = view.findViewById(R.id.btn_language)
         btnLightMode = view.findViewById(R.id.btn_light_mode)
@@ -52,6 +64,10 @@ class SettingsFragment : Fragment() {
         languageButton.text = getString(R.string.language)
         btnLightMode.text = getString(R.string.light_mode)
         btnDarkMode.text = getString(R.string.dark_mode)
+=======
+        val logoutButton: Button = view.findViewById(R.id.btn_logout) // Add the logout button
+        languageSpinner = view.findViewById(R.id.language_spinner)
+>>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
 
         // Set up Edit Profile Button
         editProfileButton.setOnClickListener {
@@ -67,12 +83,16 @@ class SettingsFragment : Fragment() {
             // Show confirmation dialog
             showDeleteConfirmationDialog()
         }
+        logoutButton.text = getString(R.string.settings_logout)
 
         // Set up Logout Button
         logoutButton.setOnClickListener {
             // Show confirmation dialog for logout
             showLogoutConfirmationDialog()
         }
+        Log.d("SettingsFragmentOnCreate", "BeforeLocale: ${resources.configuration.locales[0]}")
+        setupLanguageSpinner()
+        Log.d("SettingsFragmentOnCreate", "AfterLocale: ${resources.configuration.locales[0]}")
 
         // Set up Language Button
         languageButton.setOnClickListener {
@@ -80,6 +100,70 @@ class SettingsFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun setupLanguageSpinner() {
+        // Load saved language preference
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val savedLanguage = sharedPreferences.getString("selected_language", "en")
+        val languageLocaleMap = mapOf(
+            "English" to "en",
+            "Zulu" to "zu",
+            "Afrikaans (ZA)" to "af"
+        )
+        val localeLanguageMap = mapOf(
+            "en" to "English",
+            "zu" to "Zulu",
+            "af" to "Afrikaans (ZA)"
+        )
+
+        // Set up the language options adapter
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.languages_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            languageSpinner.adapter = adapter
+        }
+
+        // Set saved language selection in spinner
+        val languages = resources.getStringArray(R.array.languages_array)
+        val position = languages.indexOf(localeLanguageMap[savedLanguage])
+        languageSpinner.setSelection(position)
+
+
+        // Listen for language selection
+        languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedLanguage = languages[position]
+                val selectedLocaleCode = languageLocaleMap[selectedLanguage] ?: return
+
+                Log.d("SettingsFragment", "Localecode: $selectedLocaleCode, savedlanguage: $savedLanguage ")
+                if (selectedLocaleCode != savedLanguage) {
+                    sharedPreferences.edit().putString("selected_language", selectedLocaleCode).apply()
+                    updateLocale(selectedLanguage)
+                    requireActivity().recreate() // Recreate activity to apply language change
+                    Toast.makeText(requireContext(), "Language updated to $selectedLanguage", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+    private fun updateLocale(language: String) {
+        val locale = when (language) {
+            "English" -> Locale("en")
+            "Zulu" -> Locale("zu")
+            "Afrikaans (ZA)" -> Locale("af", "ZA")
+            else -> Locale.getDefault()
+        }
+
+        Locale.setDefault(locale)
+        Log.d("SettingsFragment", "Locale: ${Locale.getDefault()}")
+        val config = Configuration()
+        config.setLocale(locale)
+        requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
     }
 
     // Function to show delete confirmation dialog
