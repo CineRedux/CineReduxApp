@@ -2,16 +2,26 @@ package com.example.cineredux_v2
 
 import SearchFragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.cineredux_v2.utils.LocaleHelper
 
 class MainActivity : AppCompatActivity() {
 
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Apply saved locale
+        LocaleHelper.setLocale(this, LocaleHelper.getLanguage(this))
+
         // Load saved theme preference
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
@@ -23,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -33,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             loadFragment(HomeFragment())
         }
 
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     loadFragment(HomeFragment())

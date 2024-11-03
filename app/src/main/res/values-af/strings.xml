@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CineRedux</string>
+    
+    <!-- Login Screen -->
+    <string name="login">Teken Aan</string>
+    <string name="username">Gebruikersnaam</string>
+    <string name="password">Wagwoord</string>
+    <string name="login_button">Teken Aan</string>
+    <string name="register_button">Registreer</string>
+    <string name="invalid_credentials">Ongeldige gebruikersnaam of wagwoord</string>
+    <string name="biometric_login">Biometriese Aanmelding</string>
+    <string name="biometric_subtitle">Gebruik jou biometriese inligting om aan te teken</string>
+    <string name="google_signin_failed">Google-aanmelding het misluk: %1$s</string>
+    <string name="sign_in_with_google">Teken aan met Google</string>
+    <string name="sign_in_with_biometrics">Teken aan met Biometrie</string>
+    
+    <!-- Settings Screen -->
+    <string name="language">Taal</string>
+    <string name="dark_mode">Donker modus</string>
+    <string name="light_mode">Ligte modus</string>
+    <string name="select_language">Kies Taal</string>
+    <string name="english">Engels</string>
+    <string name="afrikaans">Afrikaans</string>
+    <string name="cancel">Kanselleer</string>
+    <string name="settings_title">Instellings</string>
+    <string name="settings_subtitle">Bestuur Jou Voorkeure</string>
+    <string name="edit_profile">Wysig Profiel</string>
+    <string name="delete_profile">Verwyder Profiel</string>
+    <string name="logout">Teken Uit</string>
+    <string name="delete_profile_title">Verwyder Profiel</string>
+    <string name="delete_profile_message">Is jy seker jy wil jou profiel verwyder? Hierdie aksie kan nie ongedaan gemaak word nie.</string>
+    <string name="logout_title">Teken Uit</string>
+    <string name="logout_message">Is jy seker jy wil uitteken?</string>
+    
+    <!-- Other -->
+    <string name="movie_poster">Fliek Plakkaat</string>
+    <string name="play_trailer">Speel Lokprent</string>
+    <string name="top_10_movies">Top 10 Flieks</string>
+    <string name="home">Tuis</string>
+    <string name="add">Voeg by</string>
+    <string name="add_to_watchlist">Voeg by Kyslys</string>
+    <string name="add_to_watchlist_message">Wil jy %1$s by jou kyslys voeg?</string>
+    <string name="tomatometer">Tomatometer: %1$s%%</string>
+    <string name="loading_error">Kon nie flieks laai nie. Probeer asseblief weer.</string>
+    
+    <!-- Search Fragment -->
+    <string name="search_title">Soek</string>
+    <string name="search_subtitle">Soek Vir Flieks</string>
+    <string name="search_hint">Soek vir flieks&#8230;</string>
+    <string name="search_button">Soek</string>
+    <string name="no_results">Geen resultate gevind</string>
+    <string name="search_error">Fout tydens soektog</string>
+    
+    <!-- Watchlist Fragment -->
+    <string name="watchlist_title">My Kyslys</string>
+    <string name="empty_watchlist">Jou kyslys</string>
+    <string name="delete_from_watchlist">Verwyder van Kyslys</string>
+    <string name="delete_movie_message">Is jy seker jy wil %1$s van jou kyslys verwyder?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+</resources> 

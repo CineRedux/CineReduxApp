@@ -15,6 +15,11 @@ import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatDelegate
 import android.graphics.Color
 import androidx.core.content.ContextCompat
+import android.content.res.Configuration
+import android.content.res.Resources
+import android.os.Build
+import java.util.Locale
+import com.example.cineredux_v2.utils.LocaleHelper
 
 
 class SettingsFragment : Fragment() {
@@ -35,12 +40,23 @@ class SettingsFragment : Fragment() {
 
         val editProfileButton: Button = view.findViewById(R.id.btn_edit_profile)
         val deleteProfileButton: Button = view.findViewById(R.id.btn_delete_profile)
-        val logoutButton: Button = view.findViewById(R.id.btn_logout) // Add the logout button
+        val logoutButton: Button = view.findViewById(R.id.btn_logout)
+        val languageButton: Button = view.findViewById(R.id.btn_language)
+        btnLightMode = view.findViewById(R.id.btn_light_mode)
+        btnDarkMode = view.findViewById(R.id.btn_dark_mode)
+
+        // Set button texts
+        editProfileButton.text = getString(R.string.edit_profile)
+        deleteProfileButton.text = getString(R.string.delete_profile)
+        logoutButton.text = getString(R.string.logout)
+        languageButton.text = getString(R.string.language)
+        btnLightMode.text = getString(R.string.light_mode)
+        btnDarkMode.text = getString(R.string.dark_mode)
 
         // Set up Edit Profile Button
         editProfileButton.setOnClickListener {
             // Replace the fragment manually
-            val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, EditProfileFragment())
             transaction.addToBackStack(null) // Optional: allows back navigation
             transaction.commit()
@@ -58,16 +74,21 @@ class SettingsFragment : Fragment() {
             showLogoutConfirmationDialog()
         }
 
+        // Set up Language Button
+        languageButton.setOnClickListener {
+            showLanguageSelectionDialog()
+        }
+
         return view
     }
 
     // Function to show delete confirmation dialog
     private fun showDeleteConfirmationDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Profile")
-            .setMessage("Are you sure you want to delete your profile? This action cannot be undone.")
-            .setPositiveButton("Delete") { _, _ -> deleteProfile() }
-            .setNegativeButton("Cancel", null)
+            .setTitle(getString(R.string.delete_profile_title))
+            .setMessage(getString(R.string.delete_profile_message))
+            .setPositiveButton(getString(R.string.delete_profile)) { _, _ -> deleteProfile() }
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -90,10 +111,10 @@ class SettingsFragment : Fragment() {
     // Function to show logout confirmation dialog
     private fun showLogoutConfirmationDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Logout")
-            .setMessage("Are you sure you want to log out?")
-            .setPositiveButton("Logout") { _, _ -> logout() }
-            .setNegativeButton("Cancel", null)
+            .setTitle(getString(R.string.logout_title))
+            .setMessage(getString(R.string.logout_message))
+            .setPositiveButton(getString(R.string.logout)) { _, _ -> logout() }
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -159,6 +180,34 @@ class SettingsFragment : Fragment() {
         }
     }
 
-
+    private fun showLanguageSelectionDialog() {
+        val languages = arrayOf(getString(R.string.english), getString(R.string.afrikaans))
+        val languageCodes = arrayOf("en", "af")
+        
+        val currentLang = LocaleHelper.getLanguage(requireContext())
+        val currentIndex = languageCodes.indexOf(currentLang)
+        
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.select_language))
+            .setSingleChoiceItems(languages, currentIndex) { dialog, which ->
+                if (languageCodes[which] != currentLang) {
+                    LocaleHelper.setLocale(requireContext(), languageCodes[which])
+                    
+                    // Restart the entire application
+                    requireActivity().packageManager
+                        .getLaunchIntentForPackage(requireActivity().packageName)?.let { intent ->
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                            requireActivity().finish()
+                        }
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
 
 }

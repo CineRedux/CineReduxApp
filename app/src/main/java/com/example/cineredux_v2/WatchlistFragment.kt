@@ -70,15 +70,15 @@ class WatchlistFragment : Fragment() {
 
     private fun showDeleteConfirmationDialog(movie: MovieSearch) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Delete Movie")
-        builder.setMessage("Are you sure you want to delete ${movie.title}?")
-        builder.setPositiveButton("Yes") { dialog, which ->
-            deleteMovie(movie)  // Delete the movie
-        }
-        builder.setNegativeButton("No") { dialog, which ->
-            dialog.dismiss()  // Dismiss the dialog
-        }
-        builder.show()
+            .setTitle(getString(R.string.delete_from_watchlist))
+            .setMessage(getString(R.string.delete_movie_message, movie.title))
+            .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                deleteMovie(movie)
+            }
+            .setNegativeButton(getString(R.string.no)) { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
 

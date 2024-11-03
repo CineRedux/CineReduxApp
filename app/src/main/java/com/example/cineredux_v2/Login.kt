@@ -1,8 +1,7 @@
 package com.example.cineredux_v2
 
-import com.example.cineredux_v2.registration
+import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -12,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import com.example.cineredux_v2.utils.LocaleHelper
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,6 +21,10 @@ import com.google.android.gms.tasks.Task
 import java.util.concurrent.Executor
 
 class Login : AppCompatActivity() {
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase))
+    }
 
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var biometricManager: BiometricManager
@@ -35,6 +39,10 @@ class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Apply saved locale
+        LocaleHelper.setLocale(this, LocaleHelper.getLanguage(this))
+        
         setContentView(R.layout.activity_login)
 
         databaseHelper = DatabaseHelper(this)
@@ -44,7 +52,13 @@ class Login : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.loginButton)
         val googleSignInButton = findViewById<ImageButton>(R.id.googleSignInButton)
         val biometricLoginButton = findViewById<ImageButton>(R.id.biometricLoginButton)
-        val registerButton = findViewById<Button>(R.id.registerButton) // Register button
+        val registerButton = findViewById<Button>(R.id.registerButton)
+
+        // Update hints and button texts with localized strings
+        usernameField.hint = getString(R.string.username)
+        passwordField.hint = getString(R.string.password)
+        loginButton.text = getString(R.string.login_button)
+        registerButton.text = getString(R.string.register_button)
 
         // Set up the Google Sign-In options
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -113,16 +127,16 @@ class Login : AppCompatActivity() {
             finish()
         } catch (e: ApiException) {
             // Sign-in failed, handle the error
-            Toast.makeText(this, "Google Sign-In failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.google_signin_failed, e.message), Toast.LENGTH_SHORT).show()
         }
     }
 
     // Biometric Prompt setup
     private fun createBiometricPrompt(): BiometricPrompt {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric Login")
-            .setSubtitle("Use your fingerprint to log in")
-            .setNegativeButtonText("Cancel")
+            .setTitle(getString(R.string.biometric_login))
+            .setSubtitle(getString(R.string.biometric_subtitle))
+            .setNegativeButtonText(getString(R.string.cancel))
             .build()
 
         return BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
@@ -156,9 +170,9 @@ class Login : AppCompatActivity() {
     private fun showBiometricPrompt() {
         biometricPrompt.authenticate(
             BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric Login")
-                .setSubtitle("Log in using your biometric credentials")
-                .setNegativeButtonText("Cancel")
+                .setTitle(getString(R.string.biometric_login))
+                .setSubtitle(getString(R.string.biometric_subtitle))
+                .setNegativeButtonText(getString(R.string.cancel))
                 .build()
         )
     }

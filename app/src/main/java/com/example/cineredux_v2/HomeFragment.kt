@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
 
             override fun onFailure(call: Call<TrendingMoviesResponse>, t: Throwable) {
                 Log.e("HomeFragment", "Failed to load trending movies", t)
-                Toast.makeText(requireContext(), "Failed to load trending movies. Please try again later.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.loading_error), Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
                 // Set movie data
                 titleTextView.text = movie.title
                 yearTextView.text = movie.year
-                tomatoMeterTextView.text = "Tomatometer: ${movie.tomatometer}"
+                tomatoMeterTextView.text = getString(R.string.tomatometer, movie.tomatometer)
                 Glide.with(this).load(movie.poster).into(posterImageView)
 
                 // Set click listeners for the movie poster
@@ -133,13 +133,13 @@ class HomeFragment : Fragment() {
 
     private fun showAddToWatchlistDialog(movie: Movie) {
         val dialog = AlertDialog.Builder(requireContext())
-        dialog.setTitle("Add to Watchlist")
-        dialog.setMessage("Do you want to add ${movie.title} to your watchlist?")
-        dialog.setPositiveButton("Add") { _, _ ->
-          //  addToWatchlist(movie)
-        }
-        dialog.setNegativeButton("Cancel", null)
-        dialog.show()
+            .setTitle(getString(R.string.add_to_watchlist))
+            .setMessage(getString(R.string.add_to_watchlist_message, movie.title))
+            .setPositiveButton(getString(R.string.add)) { _, _ ->
+                //addToWatchlist(movie)
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
     }
 
 

@@ -21,9 +21,9 @@
     <!-- Watchlist Text -->
     <TextView
         android:id="@+id/watchlist_title"
+        android:text="@string/watchlist_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Watchlist"
         android:textSize="24sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"
@@ -32,9 +32,9 @@
     <!-- All movies added to Watchlist Text -->
     <TextView
         android:id="@+id/watchlist_subtitle"
+        android:text="@string/empty_watchlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All movies added to Watchlist"
         android:textSize="18sp"
         android:textColor="@android:color/black"
         android:gravity="center"/>

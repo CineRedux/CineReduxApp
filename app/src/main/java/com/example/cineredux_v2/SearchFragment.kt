@@ -71,6 +71,9 @@ class SearchFragment : Fragment() {
             }
         }
 
+        searchEditText.hint = getString(R.string.search_hint)
+        searchButton.text = getString(R.string.search_button)
+
         return view
     }
 
@@ -111,13 +114,13 @@ class SearchFragment : Fragment() {
     private fun showAddToWatchlistDialog(movie: Movie) {
         Log.d(TAG, "Showing add to watchlist dialog for movie: ${movie.title}")
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Add to Watchlist")
-        builder.setMessage("Do you want to add ${movie.title} to your watchlist?")
-        builder.setPositiveButton("Yes") { dialog, _ ->
+        builder.setTitle(getString(R.string.add_to_watchlist))
+        builder.setMessage(getString(R.string.add_to_watchlist_message, movie.title))
+        builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
             addToWatchlist(movie)
             dialog.dismiss()
         }
-        builder.setNegativeButton("No") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
             dialog.dismiss()
         }
         builder.create().show()

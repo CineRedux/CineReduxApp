@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="@string/login"
                 android:id="@+id/loginText"
                 android:textSize="36sp"
                 android:textAlignment="center"
@@ -42,7 +42,7 @@
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
-                android:hint="Username"
+                android:hint="@string/username"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
@@ -55,7 +55,7 @@
                 android:layout_marginTop="20dp"
                 android:inputType="textPassword"
                 android:padding="8dp"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
@@ -63,7 +63,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Login"
+                android:text="@string/login_button"
                 android:id="@+id/loginButton"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
@@ -74,7 +74,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Register"
+                android:text="@string/register_button"
                 android:id="@+id/registerButton"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
@@ -89,7 +89,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/google_button"
-                android:contentDescription="Sign in with Google"
+                android:contentDescription="@string/sign_in_with_google"
                 android:scaleType="fitCenter" />
 
             <!-- Biometric Login ImageButton with fingerprint logo, enlarged and centered -->
@@ -101,7 +101,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/baseline_fingerprint_24"
-                android:contentDescription="Login with Biometrics"
+                android:contentDescription="@string/sign_in_with_biometrics"
                 android:scaleType="centerInside" />
 
         </LinearLayout>
