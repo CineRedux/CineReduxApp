@@ -15,11 +15,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -49,7 +51,9 @@ class HomeFragment : Fragment() {
             Log.d("HomeFragment", "No Cached movies, fetching from api")
             fetchMoviesFromAPI(view)
         }
+        setLocale()
     }
+
 
     private fun fetchMoviesFromAPI(view: View) {
         val apiService = RetrofitClient.instance
@@ -82,10 +86,22 @@ class HomeFragment : Fragment() {
             }
         })
     }
-
+    private fun setLocale() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val selectedLanguage = sharedPreferences.getString("selected_language", "en") ?: "en"
+        val locale = Locale(selectedLanguage)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
     private fun displayMovies(view: View, movies: List<Movie>?) {
         val gridLayout = view.findViewById<GridLayout>(R.id.grid_layout_movies)
-
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val savedLanguage = sharedPreferences.getString("selected_language", "English")
+        val currentLocale = resources.configuration.locales[0]
+        Log.d("HomeFragment", "Language: $savedLanguage, $currentLocale")
+        Log.d("HomeFragment", "Locale: ${Locale.getDefault()}")
         movies?.let { movieList ->
             gridLayout.removeAllViews()
 

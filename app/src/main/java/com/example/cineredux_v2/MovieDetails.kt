@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 class MovieDetails : Fragment() {
 
@@ -27,6 +29,7 @@ class MovieDetails : Fragment() {
     private lateinit var overviewTextView: TextView
     private lateinit var watchlistImageView: ImageView
     private lateinit var playImageView: ImageView
+    private lateinit var overviewLabel: TextView
 
     // Poster and trailer URL properties
     private var posterUrl: String = ""
@@ -57,19 +60,23 @@ class MovieDetails : Fragment() {
         overviewTextView = view.findViewById(R.id.movie_overview)
         watchlistImageView = view.findViewById(R.id.watchlist_imageview)
         playImageView = view.findViewById(R.id.play_imageview)
+        overviewLabel = view.findViewById(R.id.movie_overview_label)
     }
 
     private fun setMovieDetails(movie: MovieInfo) {
-        val runtime = "Runtime: ${convertMinutesToHoursMinutes(movie.runtime)}"
-        val year = "Release year: ${movie.year ?: "N/A"}"
+        val runtime = "${getString(R.string.movie_runtime)}: ${convertMinutesToHoursMinutes(movie.runtime)}"
+        val year = "${getString(R.string.movie_release_year)}: ${movie.year ?: "N/A"}"
         val rating = movie.tomatometer ?: movie.tmdbScore
         val isTomatometer = movie.tomatometer != null
+
 
         titleTextView.text = movie.title ?: "N/A"
         runtimeTextView.text = runtime
         yearTextView.text = year
         ratingTextView.text = rating
         overviewTextView.text = movie.overview
+        overviewLabel.text = getString(R.string.movie_overview)
+        Log.d("MovieDetailsFragment", "Locale: ${Locale.getDefault()}, overview: ${overviewLabel.text}")
 
         ratingImageView.setImageResource(
             if (isTomatometer) R.drawable.rotten_tomatoes else R.drawable.gold_star

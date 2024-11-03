@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movie_poster">Iphosta yefilimu</string>
+    <string name="play_trailer">Dlala i-trailer</string>
+    <string name="movie_overview">incazelo yefilimu</string>
+    <string name="settings_logout">Phuma</string>
+    <string name="movie_add_to_watchlist">Engeza ohlwini lokubuka</string>
+    <string name="movie_runtime">Ubude befilimu</string>
+    <string name="movie_release_year">unyaka wokukhululwa</string>
+    <string name="movie_search">Sesha</string>
+    <string name="search_for_movie">Sesha imuvi</string>
+    <string name="movie_home">Ikhaya</string>
+    <string name="movie_trending">Amafilimu aphezulu ayi-10 athrendayo</string>
+    <string name="search_watchlist">Uhlu lokubuka</string>
+    <string name="search_added_movies">Amafilimu akho asohlwini lokubuka</string>
+</resources>

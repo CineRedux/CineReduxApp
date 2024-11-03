@@ -45,7 +45,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
+<<<<<<< HEAD
             android:text="@string/home"
+=======
+            android:text="@string/movie_home"
+>>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -55,7 +59,11 @@
             android:id="@+id/top_movies_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:text="@string/top_10_movies"
+=======
+            android:text="@string/movie_trending"
+>>>>>>> 980c113a5a933ddffb2b24d9886f8cb33684428e
             android:textSize="18sp"
             android:textColor="#000000"
             android:textStyle="bold"
