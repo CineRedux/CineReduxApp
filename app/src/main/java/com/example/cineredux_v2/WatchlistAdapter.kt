@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 
 class WatchlistAdapter(
     private val movieList: List<MovieSearch>,
-    private val onDeleteClick: (MovieSearch) -> Unit  // Callback for delete action
+    private val onDeleteClick: (MovieSearch) -> Unit
 ) : RecyclerView.Adapter<WatchlistAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,8 +19,6 @@ class WatchlistAdapter(
         var overviewTextView: TextView = itemView.findViewById(R.id.movie_overview)
         var posterImageView: ImageView = itemView.findViewById(R.id.movie_poster)
         var tomatometerTextView: TextView = itemView.findViewById(R.id.movie_tomatometer)
-        //var yearTextView: TextView = itemView.findViewById(R.id.movie_year)
-        //var trailerTextView: TextView = itemView.findViewById(R.id.movie_trailer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,22 +37,19 @@ class WatchlistAdapter(
         Log.d("WatchlistAdapter", "Overview: ${movie.overview ?: "No Overview"}")
         Log.d("WatchlistAdapter", "Tomatometer: ${movie.tomatometer ?: "N/A"}")
 
-        // Set movie data to views
         holder.titleTextView.text = movie.title ?: "No Title"
         holder.overviewTextView.text = movie.overview ?: "No Overview"
         holder.tomatometerTextView.text = "Tomatometer: ${movie.tomatometer ?: "N/A"}"
 
-        // Load the movie poster using Glide
         Glide.with(holder.posterImageView.context)
             .load(movie.poster)
             .placeholder(R.drawable.baseline_broken_image_24)  // Placeholder when loading
-            .error(R.drawable.baseline_error_24)  // Error image if load fails
+            .error(R.drawable.baseline_error_24)
             .into(holder.posterImageView)
 
-        // Set long-click listener to show delete confirmation
         holder.itemView.setOnLongClickListener {
-            onDeleteClick(movie)  // Trigger the delete action
-            true  // Indicate that the long-click was handled
+            onDeleteClick(movie)
+            true
         }
     }
 

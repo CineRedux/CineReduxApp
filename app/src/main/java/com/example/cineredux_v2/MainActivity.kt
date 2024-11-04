@@ -19,16 +19,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Apply saved locale
         val prefs = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         val language = prefs.getString("language", "en") ?: "en"
         LocaleHelper.setLocale(this, language)
 
-        // Load saved theme preference
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
 
-        // Set the app theme based on preference
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
@@ -39,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Set default fragment when activity is created
         if (savedInstanceState == null) {
             loadFragment(HomeFragment())
         }

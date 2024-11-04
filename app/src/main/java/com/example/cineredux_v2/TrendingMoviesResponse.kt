@@ -4,13 +4,11 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-// This class represents a response containing trending movies
 @Parcelize
 data class TrendingMoviesResponse(
     @SerializedName("TopMovies") val topMovies: List<Movie>
 ) : Parcelable
 
-// This class represents a response containing similar movies
 @Parcelize
 data class MovieSearchResponse(
     @SerializedName("SimilarMovies") val results: List<Movie>

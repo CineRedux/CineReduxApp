@@ -29,7 +29,7 @@ import retrofit2.Response
 class SearchFragment : Fragment() {
 
     private lateinit var adapter: SearchAdapter
-    private val movies = listOf<Movie>() // Assume you fetch your movie list here
+    private val movies = listOf<Movie>()
     private lateinit var searchEditText: EditText
     private lateinit var searchButton: Button
     private lateinit var recyclerView: RecyclerView
@@ -41,18 +41,16 @@ class SearchFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
-        // Initialize views
         searchEditText = view.findViewById(R.id.edit_search)
         searchButton = view.findViewById(R.id.btn_search)
         recyclerView = view.findViewById(R.id.recycler_view_search_results)
         progressBar = view.findViewById(R.id.progress_bar)
 
-        // Set up RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = SearchAdapter(movies,
             onMovieClick = { movie ->
                 Log.d(TAG, "Movie poster clicked: ${movie.title}")
-                navigateToMovieDetails(movie.id) // Update this line to navigate to movie details
+                navigateToMovieDetails(movie.id)
             },
             onMovieLongClick = { movie ->
                 showAddToWatchlistDialog(movie)
@@ -60,7 +58,6 @@ class SearchFragment : Fragment() {
         )
         recyclerView.adapter = adapter
 
-        // Set button click listener to trigger search
         searchButton.setOnClickListener {
             val query = searchEditText.text.toString().trim()
             if (query.isNotEmpty()) {

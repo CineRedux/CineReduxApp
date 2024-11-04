@@ -38,8 +38,8 @@ class SearchAdapter(
 
             // Handle long-click event
             itemView.setOnLongClickListener {
-                onMovieLongClick(movie) // Call the provided onMovieLongClick lambda
-                true // Return true to indicate the event is handled
+                onMovieLongClick(movie)
+                true
             }
         }
     }

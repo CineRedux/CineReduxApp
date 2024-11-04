@@ -13,8 +13,7 @@ import com.example.cineredux_v2.models.User
 class EditProfileFragment : Fragment() {
 
     private lateinit var databaseHelper: DatabaseHelper
-    private var userId: Int = 1 // Replace with logic to retrieve the logged-in user's ID if needed
-
+    private var userId: Int = 1
     private lateinit var nameEditText: EditText
     private lateinit var surnameEditText: EditText
     private lateinit var usernameEditText: EditText
@@ -29,10 +28,8 @@ class EditProfileFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
 
-        // Initialize DatabaseHelper
         databaseHelper = DatabaseHelper(requireContext())
 
-        // Initialize views
         nameEditText = view.findViewById(R.id.editText_name)
         surnameEditText = view.findViewById(R.id.editText_surname)
         usernameEditText = view.findViewById(R.id.editText_username)
@@ -41,10 +38,8 @@ class EditProfileFragment : Fragment() {
         passwordEditText = view.findViewById(R.id.editText_password)
         saveButton = view.findViewById(R.id.button_save_profile)
 
-        // Load user profile data
         loadUserProfile()
 
-        // Set up Save button click listener
         saveButton.setOnClickListener {
             saveUserProfile()
         }
@@ -52,7 +47,6 @@ class EditProfileFragment : Fragment() {
         return view
     }
 
-    // Function to load the current user profile from the database
     private fun loadUserProfile() {
         val user = databaseHelper.getUserById(userId)
 
@@ -68,7 +62,6 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    // Function to save the updated user profile to the database
     private fun saveUserProfile() {
         val name = nameEditText.text.toString()
         val surname = surnameEditText.text.toString()
@@ -77,13 +70,11 @@ class EditProfileFragment : Fragment() {
         val phone = phoneEditText.text.toString()
         val password = passwordEditText.text.toString()
 
-        // Input validation
         if (name.isBlank() || surname.isBlank() || username.isBlank() || email.isBlank() || phone.isBlank() || password.isBlank()) {
             Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Update user profile in the database
         val result = databaseHelper.updateUser(userId, name, surname, username, email, phone, password)
 
         if (result > 0) {
@@ -95,7 +86,6 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    // Function to clear all EditText fields
     private fun clearFields() {
         nameEditText.text.clear()
         surnameEditText.text.clear()
@@ -105,7 +95,6 @@ class EditProfileFragment : Fragment() {
         passwordEditText.text.clear()
     }
 
-    // Function to navigate back to SettingsFragment
     private fun navigateToSettings() {
         requireActivity().supportFragmentManager.popBackStack()
     }

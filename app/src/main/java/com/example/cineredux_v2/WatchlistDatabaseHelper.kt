@@ -31,7 +31,7 @@ class WatchlistDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         // In a real-world scenario, you could also migrate data. But for now, drop the old table and create a new one.
         db.execSQL("DROP TABLE IF EXISTS $TABLE_WATCHLIST")
         Log.d(TAG, "Old watchlist table dropped")
-        onCreate(db) // Recreate the table with the new schema
+        onCreate(db)
     }
     fun isMovieInWatchlist(movieId: Int): Boolean {
         val db = this.readableDatabase
@@ -49,19 +49,17 @@ class WatchlistDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         return exists
     }
 
-    // Method to add a movie to the watchlist
     fun addMovie(movie: MovieSearch): Boolean {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put(COLUMN_TITLE, movie.title)
             put(COLUMN_OVERVIEW, movie.overview)
             put(COLUMN_POSTER_URL, movie.poster)
-            put(COLUMN_TOMATOEMETER, movie.tomatometer ?: "N/A")  // Handle missing score
+            put(COLUMN_TOMATOEMETER, movie.tomatometer ?: "N/A")
             put(COLUMN_TRAILER_URL, movie.trailer ?: "No Trailer")
-            put(COLUMN_YEAR, movie.year) // Ensure the year is stored as a string
+            put(COLUMN_YEAR, movie.year)
         }
 
-        // Logging values to check before insertion
         Log.d(TAG, "Inserting movie: ${movie.title}")
         Log.d(TAG, "Tomatometer: ${movie.tomatometer ?: "No value"}")
         Log.d(TAG, "Trailer: ${movie.trailer ?: "No value"}")
@@ -84,7 +82,6 @@ class WatchlistDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
     }
 
 
-    // Method to retrieve all movies in the watchlist
     fun getWatchlistMovies(): List<MovieSearch> {
         val movies = mutableListOf<MovieSearch>()
         val db = this.readableDatabase
@@ -114,7 +111,6 @@ class WatchlistDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         return movies
     }
 
-    // Method to delete a movie from the watchlist by ID
     fun deleteMovieById(id: Int): Boolean {
         val db = this.writableDatabase
         return try {
@@ -139,15 +135,14 @@ class WatchlistDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         private const val DATABASE_NAME = "watchlist.db"
         private const val DATABASE_VERSION = 7
 
-        // Table and column names
         private const val TABLE_WATCHLIST = "movies"
         private const val COLUMN_ID = "id"
         private const val COLUMN_TITLE = "title"
         private const val COLUMN_OVERVIEW = "overview"
         private const val COLUMN_POSTER_URL = "poster_url"
-        private const val COLUMN_TOMATOEMETER = "tmdbScore"  // Match MovieSearch class
+        private const val COLUMN_TOMATOEMETER = "tmdbScore"
         private const val COLUMN_TRAILER_URL = "trailer_url"
-        private const val COLUMN_YEAR = "year" // Ensure the year column is a string
+        private const val COLUMN_YEAR = "year"
 
         private const val TAG = "WatchlistDatabaseHelper"
     }

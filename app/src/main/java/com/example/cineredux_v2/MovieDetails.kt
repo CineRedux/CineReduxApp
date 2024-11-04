@@ -31,7 +31,6 @@ class MovieDetails : Fragment() {
     private lateinit var playImageView: ImageView
     private lateinit var overviewLabel: TextView
 
-    // Poster and trailer URL properties
     private var posterUrl: String = ""
     private var trailerUrl: String = ""
 

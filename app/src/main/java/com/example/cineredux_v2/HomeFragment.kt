@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
-        // Observe cached movies
         viewModel.cachedMovies.observe(viewLifecycleOwner) { cachedMovies ->
             if (cachedMovies != null && cachedMovies.isNotEmpty() && isAdded) {
                 Log.d("HomeFragment", "Displaying cached movies")
@@ -107,22 +106,19 @@ class HomeFragment : Fragment() {
                 val tomatoMeterTextView = movieView.findViewById<TextView>(R.id.movie_tomatometer)
                 val posterImageView = movieView.findViewById<ImageView>(R.id.movie_poster)
 
-                // Set movie data
                 titleTextView.text = movie.title
                 yearTextView.text = movie.year
                 tomatoMeterTextView.text = getString(R.string.tomatometer, movie.tomatometer)
                 Glide.with(this).load(movie.poster).into(posterImageView)
 
-                // Set click listeners for the movie poster
                 posterImageView.setOnClickListener {
-                    //navigateToWatchlistFragment()
+
                     navigateToMovieDetails(movie.id)
                 }
 
-                // Handle long-click event to add to watchlist
                 posterImageView.setOnLongClickListener {
                     showAddToWatchlistDialog(movie)
-                    true // Return true to indicate the event is handled
+                    true
                 }
 
 
@@ -145,7 +141,6 @@ class HomeFragment : Fragment() {
             .setTitle(getString(R.string.add_to_watchlist))
             .setMessage(getString(R.string.add_to_watchlist_message, movie.title))
             .setPositiveButton(getString(R.string.add)) { _, _ ->
-                //addToWatchlist(movie)
             }
             .setNegativeButton(getString(R.string.cancel), null)
             .show()

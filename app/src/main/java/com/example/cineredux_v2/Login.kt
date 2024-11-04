@@ -54,13 +54,11 @@ class Login : AppCompatActivity() {
         val biometricLoginButton = findViewById<ImageButton>(R.id.biometricLoginButton)
         val registerButton = findViewById<Button>(R.id.registerButton)
 
-        // Update hints and button texts with localized strings
         usernameField.hint = getString(R.string.username)
         passwordField.hint = getString(R.string.password)
         loginButton.text = getString(R.string.login_button)
         registerButton.text = getString(R.string.register_button)
 
-        // Set up the Google Sign-In options
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(WEB_CLIENT_ID) // Use the constant directly
             .requestEmail()
@@ -72,7 +70,6 @@ class Login : AppCompatActivity() {
             signInWithGoogle()
         }
 
-        // Set up the executor and biometric prompt
         executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = createBiometricPrompt()
 
@@ -131,7 +128,6 @@ class Login : AppCompatActivity() {
         }
     }
 
-    // Biometric Prompt setup
     private fun createBiometricPrompt(): BiometricPrompt {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.biometric_login))

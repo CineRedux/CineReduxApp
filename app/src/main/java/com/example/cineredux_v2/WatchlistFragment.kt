@@ -15,28 +15,23 @@ class WatchlistFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WatchlistAdapter
     private lateinit var dbHelper: WatchlistDatabaseHelper
-    private lateinit var movieArrayList: ArrayList<MovieSearch>  // Change type to MovieSearch
+    private lateinit var movieArrayList: ArrayList<MovieSearch>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_watchlist, container, false)
 
-        // Initialize views
         recyclerView = view.findViewById(R.id.recycler_view_watchlist)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // Initialize database helper
         dbHelper = WatchlistDatabaseHelper(requireContext())
 
-        // Fetch cached movies from the database
-        movieArrayList = dbHelper.getWatchlistMovies() as ArrayList<MovieSearch> // Fetch movies directly as ArrayList
+        movieArrayList = dbHelper.getWatchlistMovies() as ArrayList<MovieSearch>
 
-        // Set up the RecyclerView with cached movies
         adapter = WatchlistAdapter(movieArrayList) { movie ->
-            showDeleteConfirmationDialog(movie)  // Show dialog on long click
+            showDeleteConfirmationDialog(movie)
         }
         recyclerView.adapter = adapter
 
@@ -45,13 +40,13 @@ class WatchlistFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadMoviesFromDatabase() // Reload movies every time the fragment is visible
+        loadMoviesFromDatabase()
     }
 
     private fun loadMoviesFromDatabase() {
         movieArrayList = dbHelper.getWatchlistMovies() as ArrayList<MovieSearch>
         adapter = WatchlistAdapter(movieArrayList) { movie ->
-            showDeleteConfirmationDialog(movie)  // Pass the delete action callback
+            showDeleteConfirmationDialog(movie)
         }
         recyclerView.adapter = adapter
         Log.d("WatchlistFragment", "Movies loaded: ${movieArrayList.size}")
@@ -60,8 +55,8 @@ class WatchlistFragment : Fragment() {
     private fun deleteMovie(movie: MovieSearch) {
         val success = dbHelper.deleteMovieById(movie.id)
         if (success) {
-            movieArrayList.remove(movie)  // Remove from list
-            adapter.notifyDataSetChanged()  // Notify adapter of data change
+            movieArrayList.remove(movie)
+            adapter.notifyDataSetChanged()
             Log.d("WatchlistFragment", "${movie.title} deleted successfully.")
         } else {
             Log.e("WatchlistFragment", "Failed to delete ${movie.title}.")
